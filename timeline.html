@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Línea de Tiempo - Historia Casa Tito</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería SheetJS para exportar a Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            100: '#1e1e1e',
+                            200: '#2d2d2d',
+                            300: '#3d3d3d',
+                            400: '#4d4d4d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+            border-radius: 2px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 4px solid;
+            z-index: 10;
+        }
+
+        .evento { border-color: #3b82f6; background: #3b82f6; }
+        .compra { border-color: #10b981; background: #10b981; }
+        .obra { border-color: #f59e0b; background: #f59e0b; }
+        .comunicacion { border-color: #ec4899; background: #ec4899; }
+
+        .card-evento { border-left: 4px solid #3b82f6; }
+        .card-compra { border-left: 4px solid #10b981; }
+        .card-obra { border-left: 4px solid #f59e0b; }
+        .card-comunicacion { border-left: 4px solid #ec4899; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        .animate-slide-in {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+
+        .timeline-item {
+            opacity: 0;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+        }
+
+        .filter-btn.active {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .message-bubble {
+            max-width: 90%;
+        }
+
+        .form-input {
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            transform: scale(1.02);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        .notification {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: #2d2d2d;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background: #4d4d4d;
+            border-radius: 3px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+            background: #5d5d5d;
+        }
+    </style>
+</head>
+<body class="bg-dark-100 text-gray-100 min-h-screen">
+    <!-- Pantalla de Contraseña -->
+    <div id="passwordScreen" class="fixed inset-0 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 z-[9999] flex items-center justify-center">
+        <div class="bg-dark-200 rounded-2xl p-8 shadow-2xl max-w-md w-full mx-4 border border-purple-500/30">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-purple-600/30 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <svg class="w-10 h-10 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-2">Acceso Restringido</h2>
+                <p class="text-gray-400">Ingresá la contraseña para ver el contenido</p>
+            </div>
+            
+            <form id="passwordForm" onsubmit="return verificarContrasena(event)">
+                <div class="mb-6">
+                    <label class="block text-gray-300 text-sm font-medium mb-2">Contraseña</label>
+                    <input type="password" id="passwordInput" 
+                           class="w-full bg-dark-300 text-white rounded-lg px-4 py-3 border border-gray-600 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+                           placeholder="••••••••"
+                           autocomplete="current-password">
+                    <p id="passwordError" class="hidden text-red-400 text-sm mt-2">Contraseña incorrecta. Intentá de nuevo.</p>
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-3 rounded-lg font-semibold transition-all transform hover:scale-[1.02] shadow-lg">
+                    🔓 Acceder
+                </button>
+            </form>
+            
+            <p class="text-center text-gray-500 text-xs mt-6">
+                Esta información es confidencial
+            </p>
+        </div>
+    </div>
+
+    <!-- Contenido Principal (oculto hasta verificar contraseña) -->
+    <div id="mainContent" class="hidden">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                📅 Línea de Tiempo - Casa de Tito
+            </h1>
+            <p class="text-gray-400">Cronología de eventos, compras, obras y comunicaciones</p>
+            
+            <!-- Resumen Financiero -->
+            <div class="mt-8">
+                <div class="inline-block bg-purple-600/20 border border-purple-500/50 rounded-full px-4 py-1 mb-4">
+                    <span class="text-purple-400 text-sm font-semibold">📋 Cómputo Oficial</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                <div class="bg-dark-200 rounded-lg p-4 border border-green-500/30">
+                    <p class="text-sm text-gray-400">Total Materiales</p>
+                    <p class="text-2xl font-bold text-green-400" id="totalMateriales">$0</p>
+                </div>
+                <div class="bg-dark-200 rounded-lg p-4 border border-yellow-500/30">
+                    <p class="text-sm text-gray-400">Total Mano de Obra</p>
+                    <p class="text-2xl font-bold text-yellow-400" id="totalObra">$0</p>
+                </div>
+                <div class="bg-dark-200 rounded-lg p-4 border border-purple-500/30">
+                    <p class="text-sm text-gray-400">Total Inversión</p>
+                    <p class="text-2xl font-bold text-purple-400" id="totalInversion">$0</p>
+                </div>
+            </div>
+
+            <!-- Botones de Exportación -->
+            <div class="mt-6 flex justify-center gap-3 flex-wrap">
+                <button onclick="exportarAExcel()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    📊 Exportar a Excel
+                </button>
+                <button onclick="exportarAExcelFiltrado()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                    </svg>
+                    📄 Exportar Vista Actual
+                </button>
+                <button onclick="exportarAJSON()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                    </svg>
+                    💾 Exportar JSON
+                </button>
+                <button onclick="importarJSON()" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    📂 Importar JSON
+                </button>
+            </div>
+            
+            <!-- Input oculto para importar JSON -->
+            <input type="file" id="jsonFileInput" accept=".json" class="hidden" onchange="procesarImportacionJSON(event)">
+        </header>
+
+        <!-- Botón para agregar nuevo evento -->
+        <div class="mb-8 flex justify-center">
+            <button onclick="mostrarFormularioAgregar()" class="btn-primary px-6 py-3 rounded-lg text-white font-semibold flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                Agregar Nuevo Evento
+            </button>
+        </div>
+
+        <!-- Filtros -->
+        <div class="mb-8">
+            <div class="flex flex-wrap justify-center gap-3">
+                <button onclick="filtrarPorCategoria('todos')" class="filter-btn active px-4 py-2 rounded-full bg-dark-300 text-gray-300 hover:bg-blue-500 hover:text-white transition-all duration-300" data-categoria="todos">
+                    📋 Todos
+                </button>
+                <button onclick="filtrarPorCategoria('evento')" class="filter-btn px-4 py-2 rounded-full bg-dark-300 text-gray-300 hover:bg-blue-500 hover:text-white transition-all duration-300" data-categoria="evento">
+                    📌 Eventos
+                </button>
+                <button onclick="filtrarPorCategoria('compra')" class="filter-btn px-4 py-2 rounded-full bg-dark-300 text-gray-300 hover:bg-green-500 hover:text-white transition-all duration-300" data-categoria="compra">
+                    🛒 Compras
+                </button>
+                <button onclick="filtrarPorCategoria('obra')" class="filter-btn px-4 py-2 rounded-full bg-dark-300 text-gray-300 hover:bg-yellow-500 hover:text-white transition-all duration-300" data-categoria="obra">
+                    🔨 Obras
+                </button>
+                <button onclick="filtrarPorCategoria('comunicacion')" class="filter-btn px-4 py-2 rounded-full bg-dark-300 text-gray-300 hover:bg-pink-500 hover:text-white transition-all duration-300" data-categoria="comunicacion">
+                    💬 Comunicaciones
+                </button>
+            </div>
+            
+            <!-- Filtro de persona (para comunicaciones) -->
+            <div id="filtroPersona" class="hidden mt-4 flex flex-wrap justify-center gap-2">
+                <button onclick="filtrarPorPersona('todas')" class="persona-btn active px-3 py-1 text-sm rounded-full bg-dark-300 text-gray-400 hover:bg-purple-500 transition-all" data-persona="todas">
+                    Todas las personas
+                </button>
+                <button onclick="filtrarPorPersona('peyrano_stella')" class="persona-btn px-3 py-1 text-sm rounded-full bg-dark-300 text-gray-400 hover:bg-purple-500 transition-all" data-persona="peyrano_stella">
+                    Mamá
+                </button>
+                <button onclick="filtrarPorPersona('sebastian')" class="persona-btn px-3 py-1 text-sm rounded-full bg-dark-300 text-gray-400 hover:bg-purple-500 transition-all" data-persona="sebastian">
+                    Sebastián
+                </button>
+                <button onclick="filtrarPorPersona('juan_jose')" class="persona-btn px-3 py-1 text-sm rounded-full bg-dark-300 text-gray-400 hover:bg-purple-500 transition-all" data-persona="juan_jose">
+                    Abogado
+                </button>
+            </div>
+        </div>
+
+        <!-- Contenedor principal con índice lateral -->
+        <div class="flex gap-6">
+            <!-- Timeline Container -->
+            <div class="flex-1">
+                <div id="timeline" class="relative">
+                    <div class="timeline-line"></div>
+                    <!-- Los items del timeline se insertarán aquí -->
+                </div>
+
+                <!-- Mensaje de sin resultados -->
+                <div id="noResults" class="hidden text-center py-12">
+                    <p class="text-gray-500 text-lg">No hay elementos que mostrar con los filtros seleccionados</p>
+                </div>
+            </div>
+
+            <!-- Índice Lateral -->
+            <div id="indiceLateral" class="hidden lg:block w-80 flex-shrink-0 ml-4">
+                <div class="sticky top-8 bg-dark-200 rounded-lg p-4 border border-gray-700 max-h-[calc(100vh-4rem)] overflow-y-auto scrollbar-thin shadow-xl">
+                    <h3 class="text-lg font-bold text-purple-400 mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                        </svg>
+                        Índice
+                    </h3>
+                    <div id="indiceLista" class="space-y-2">
+                        <!-- Los items del índice se insertarán aquí -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor principal - Fin -->
+</div>
+
+    <!-- Modal para agregar/editar eventos -->
+    <div id="modalFormulario" class="fixed inset-0 bg-black/80 hidden z-50 overflow-y-auto">
+        <div class="min-h-screen py-8 px-4 flex items-center justify-center">
+            <div class="bg-dark-200 rounded-xl max-w-2xl w-full p-6 relative animate-slide-in">
+                <button onclick="cerrarFormulario()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <div id="formularioContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para detalles de comunicación -->
+    <div id="modal" class="fixed inset-0 bg-black/80 hidden z-50 overflow-y-auto">
+        <div class="min-h-screen py-8 px-4 flex items-center justify-center">
+            <div class="bg-dark-200 rounded-xl max-w-2xl w-full p-6 relative">
+                <button onclick="cerrarModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <div id="modalContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificación Toast -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-dark-300 text-white px-6 py-3 rounded-lg shadow-lg hidden z-50">
+        <p id="toastMessage"></p>
+    </div>
+
+    <script>
+        // Variables globales
+        let data = null;
+        let dataOriginal = null;
+        let categoriaActual = 'todos';
+        let personaActual = 'todas';
+        let editandoItem = null;
+
+        // Constante para la clave de localStorage
+        const LOCALSTORAGE_KEY = 'timeline_casa_tito_data';
+
+        // Función para mostrar notificaciones toast
+        function mostrarToast(mensaje, tipo = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = mensaje;
+            toast.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-in ${
+                tipo === 'success' ? 'bg-green-600' : 
+                tipo === 'error' ? 'bg-red-600' : 
+                tipo === 'info' ? 'bg-blue-600' : 'bg-gray-600'
+            }`;
+            toast.classList.remove('hidden');
+            
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Función para guardar en localStorage
+        function guardarEnLocalStorage() {
+            try {
+                localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(data));
+                mostrarToast('💾 Cambios guardados automáticamente', 'success');
+            } catch (error) {
+                console.error('Error al guardar en localStorage:', error);
+                mostrarToast('⚠️ Error al guardar los cambios', 'error');
+            }
+        }
+
+        // Función para cargar desde localStorage
+        function cargarDesdeLocalStorage() {
+            try {
+                const savedData = localStorage.getItem(LOCALSTORAGE_KEY);
+                if (savedData) {
+                    return JSON.parse(savedData);
+                }
+            } catch (error) {
+                console.error('Error al cargar desde localStorage:', error);
+            }
+            return null;
+        }
+
+        // Función para verificar si los datos han sido modificados
+        function datosModificados() {
+            return JSON.stringify(data) !== JSON.stringify(dataOriginal);
+        }
+
+        // Función para formatear números como moneda
+        function formatCurrency(num) {
+            return new Intl.NumberFormat('es-AR', {
+                style: 'currency',
+                currency: 'ARS',
+                minimumFractionDigits: 2
+            }).format(num);
+        }
+
+        // Función para formatear fechas
+        function formatDate(dateStr) {
+            const date = new Date(dateStr.replace(/-/g, '/'));
+            return date.toLocaleDateString('es-AR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        }
+
+        // Función para obtener el color según la categoría
+        function getCategoryColor(categoria) {
+            const colores = {
+                'evento': { bg: 'bg-blue-500/20', border: 'border-blue-500', text: 'text-blue-400', icon: '📌' },
+                'compra': { bg: 'bg-green-500/20', border: 'border-green-500', text: 'text-green-400', icon: '🛒' },
+                'obra': { bg: 'bg-yellow-500/20', border: 'border-yellow-500', text: 'text-yellow-400', icon: '🔨' },
+                'comunicacion': { bg: 'bg-pink-500/20', border: 'border-pink-500', text: 'text-pink-400', icon: '💬' }
+            };
+            return colores[categoria] || colores['evento'];
+        }
+
+        // Función para crear el HTML de un item del timeline
+        function createTimelineItem(item, index, isLeft) {
+            const color = getCategoryColor(item.categoria);
+            let extraContent = '';
+
+            if (item.categoria === 'compra' && item.monto) {
+                extraContent = `<p class="text-green-400 font-semibold mt-2">${formatCurrency(item.monto)}</p>`;
+            }
+
+            if (item.categoria === 'obra' && item.detalle && item.monto) {
+                extraContent = `
+                    <p class="text-gray-400 text-sm mt-1">${item.detalle}</p>
+                    <p class="text-yellow-400 font-semibold mt-1">${formatCurrency(item.monto)}</p>
+                `;
+            }
+
+            if (item.categoria === 'comunicacion' && item.remitente) {
+                const personaLabel = item.remitente === 'Maru' ? 'Marina' : 
+                                    item.remitente === 'Mamá' ? 'Stella Peyrano' : 
+                                    item.remitente === 'Sebastián' ? 'Sebastián (hermano)' :
+                                    item.remitente === 'Juan José' ? 'Juan José (abogado)' :
+                                    item.remitente === 'María del Carmen' ? 'Dra. Zambruno' :
+                                    item.remitente === 'Ambas partes' ? 'Ambas partes' :
+                                    item.remitente;
+                extraContent = `<p class="text-pink-400 text-sm mt-1">👤 ${personaLabel}</p>`;
+            }
+
+            // Determinar el grupo de comunicación si existe
+            let grupoCom = '';
+            if (item.categoria === 'comunicacion') {
+                if (item.destinatario === 'Mamá' || item.remitente === 'Mamá' || (item.remitente === 'Maru' && item.destinatario?.includes('Mamá'))) {
+                    grupoCom = 'peyrano_stella';
+                } else if (item.destinatario === 'Sebastián' || item.remitente === 'Sebastián') {
+                    grupoCom = 'sebastian';
+                } else if (item.remitente?.includes('Juan José') || item.remitente === 'María del Carmen' || item.remitente === 'Ambos abogados') {
+                    grupoCom = 'juan_jose';
+                }
+            }
+
+            return `
+                <div class="timeline-item relative mb-8 ${isLeft ? 'pr-[calc(50%+2rem)]' : 'pl-[calc(50%+2rem)]'}" 
+                     data-categoria="${item.categoria}" 
+                     data-persona="${grupoCom}"
+                     data-id="${item.id || index}"
+                     style="animation-delay: ${index * 50}ms">
+                    <div class="timeline-dot ${item.categoria}"></div>
+                    <div class="${color.bg} ${color.border} border-l-4 bg-dark-200 rounded-lg p-4 ${item.categoria === 'comunicacion' ? 'cursor-pointer hover:scale-[1.02] transition-transform' : ''} relative group">
+                        <!-- Botones de editar y eliminar -->
+                        <div class="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button onclick="editarEvento(${index})" class="p-1 bg-blue-500/50 hover:bg-blue-500 rounded text-white" title="Editar">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                            </button>
+                            <button onclick="eliminarEvento(${index})" class="p-1 bg-red-500/50 hover:bg-red-500 rounded text-white" title="Eliminar">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="${color.bg} ${color.border} border-l-4 bg-dark-200 rounded-lg p-4 ${item.categoria === 'comunicacion' ? 'cursor-pointer hover:scale-[1.02] transition-transform' : ''} ${item.categoria === 'comunicacion' ? '' : 'pr-12'}"
+                             ${item.categoria === 'comunicacion' ? `onclick="mostrarDetalleComunicaciones('${item.fecha}')"` : ''}>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="${color.text} text-sm font-semibold">${color.icon} ${item.categoria.charAt(0).toUpperCase() + item.categoria.slice(1)}</span>
+                                <span class="text-blue-400 text-lg font-bold bg-dark-300 px-3 py-1 rounded-lg">${formatDate(item.fecha)}</span>
+                            </div>
+                            <p class="text-gray-200">${item.descripcion}</p>
+                            ${extraContent}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Función para mostrar el formulario de agregar/editar
+        function mostrarFormularioAgregar(index = null) {
+            editandoItem = index;
+            const esEdicion = index !== null;
+            let item = esEdicion ? data.eventos[index] : null;
+
+            const formularioHTML = `
+                <h2 class="text-2xl font-bold mb-6 ${esEdicion ? 'text-blue-400' : 'text-green-400'}">
+                    ${esEdicion ? '✏️ Editar Evento' : '➕ Agregar Nuevo Evento'}
+                </h2>
+                
+                <form id="eventoForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">📅 Fecha *</label>
+                        <input type="date" id="fecha" required 
+                               value="${item ? item.fecha : new Date().toISOString().split('T')[0]}"
+                               class="form-input w-full bg-dark-300 text-white rounded-lg p-3 border border-gray-600 focus:border-blue-500 focus:outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">🏷️ Categoría *</label>
+                        <select id="categoria" required onchange="mostrarCamposCategoria()"
+                                class="form-input w-full bg-dark-300 text-white rounded-lg p-3 border border-gray-600 focus:border-blue-500 focus:outline-none">
+                            <option value="evento" ${item && item.categoria === 'evento' ? 'selected' : ''}>📌 Evento</option>
+                            <option value="compra" ${item && item.categoria === 'compra' ? 'selected' : ''}>🛒 Compra</option>
+                            <option value="obra" ${item && item.categoria === 'obra' ? 'selected' : ''}>🔨 Obra</option>
+                            <option value="comunicacion" ${item && item.categoria === 'comunicacion' ? 'selected' : ''}>💬 Comunicación</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">📝 Descripción *</label>
+                        <textarea id="descripcion" required rows="3"
+                                  class="form-input w-full bg-dark-300 text-white rounded-lg p-3 border border-gray-600 focus:border-blue-500 focus:outline-none"
+                                  placeholder="Describe el evento...">${item ? item.descripcion : ''}</textarea>
+                    </div>
+
+                    <!-- Campos específicos para Compras -->
+                    <div id="camposCompra" class="hidden space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">🏪 Proveedor</label>
+                            <input type="text" id="proveedor" 
+                                   value="${item && item.proveedor ? item.proveedor : ''}"
+                                   class="form-input w-full bg-dark-300 text-white rounded-lg p-3 border border-gray-600 focus:border-blue-500 focus:outline-none"
+                                   placeholder="Nombre del proveedor">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">💰 Monto (ARS)</label>
+                            <input type="number" id="monto" step="0.01" min="0"
+                                   value="${item && item.monto ? item.monto : ''}"
+                                   class="form-input w-full bg-dark-300 text-white rounded-lg p-3 border border-gray-600 focus:border-blue-500 focus:outline-none"
+                                   placeholder="0.00">
+                        </div>
+                    </div>
+
+                    <!-- Campos específicos para Obras -->
+                    <div id="camposObra" class="hidden space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">🔧 Detalle del trabajo</label>
+                            <input type="text" id="detalle" 
+                                   value="${item && item.detalle ? item.detalle : ''}"
+                                   class="form-input w-full bg-dark-300 text-white rounded-lg p-3 border border-gray-600 focus:border-blue-500 focus:outline-none"
+                                   placeholder="Descripción del trabajo realizado">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">💰 Monto (ARS)</label>
+                            <input type="number" id="montoObra" step="0.01" min="0"
+                                   value="${item && item.monto ? item.monto : ''}"
+                                   class="form-input w-full bg-dark-300 text-white rounded-lg p-3 border border-gray-600 focus:border-blue-500 focus:outline-none"
+                                   placeholder="0.00">
+                        </div>
+                    </div>
+
+                    <!-- Campos específicos para Comunicaciones -->
+                    <div id="camposComunicacion" class="hidden space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">👤 Remitente</label>
+                            <input type="text" id="remitente" 
+                                   value="${item && item.remitente ? item.remitente : ''}"
+                                   class="form-input w-full bg-dark-300 text-white rounded-lg p-3 border border-gray-600 focus:border-blue-500 focus:outline-none"
+                                   placeholder="Quién envía el mensaje">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">📨 Destinatario</label>
+                            <input type="text" id="destinatario" 
+                                   value="${item && item.destinatario ? item.destinatario : ''}"
+                                   class="form-input w-full bg-dark-300 text-white rounded-lg p-3 border border-gray-600 focus:border-blue-500 focus:outline-none"
+                                   placeholder="Quién recibe el mensaje">
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 pt-4">
+                        <button type="button" onclick="cerrarFormulario()" 
+                                class="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-3 rounded-lg transition-colors">
+                            Cancelar
+                        </button>
+                        <button type="submit" 
+                                class="flex-1 btn-primary text-white py-3 rounded-lg font-semibold">
+                            ${esEdicion ? '💾 Guardar Cambios' : '➕ Agregar Evento'}
+                        </button>
+                    </div>
+                </form>
+            `;
+
+            document.getElementById('formularioContent').innerHTML = formularioHTML;
+            document.getElementById('modalFormulario').classList.remove('hidden');
+            
+            // Mostrar campos específicos según la categoría inicial
+            mostrarCamposCategoria();
+            
+            // Agregar listener para el formulario
+            document.getElementById('eventoForm').addEventListener('submit', guardarEvento);
+        }
+
+        // Función para mostrar/ocultar campos según la categoría
+        function mostrarCamposCategoria() {
+            const categoria = document.getElementById('categoria').value;
+            
+            document.getElementById('camposCompra').classList.add('hidden');
+            document.getElementById('camposObra').classList.add('hidden');
+            document.getElementById('camposComunicacion').classList.add('hidden');
+            
+            if (categoria === 'compra') {
+                document.getElementById('camposCompra').classList.remove('hidden');
+            } else if (categoria === 'obra') {
+                document.getElementById('camposObra').classList.remove('hidden');
+            } else if (categoria === 'comunicacion') {
+                document.getElementById('camposComunicacion').classList.remove('hidden');
+            }
+        }
+
+        // Función para guardar el evento (nuevo o editado)
+        function guardarEvento(event) {
+            event.preventDefault();
+            
+            const fecha = document.getElementById('fecha').value;
+            const categoria = document.getElementById('categoria').value;
+            const descripcion = document.getElementById('descripcion').value;
+            
+            let nuevoItem = {
+                fecha: fecha,
+                categoria: categoria,
+                descripcion: descripcion
+            };
+            
+            // Agregar campos específicos según la categoría
+            if (categoria === 'compra') {
+                const proveedor = document.getElementById('proveedor').value;
+                const monto = parseFloat(document.getElementById('monto').value) || 0;
+                if (proveedor) nuevoItem.proveedor = proveedor;
+                if (monto > 0) nuevoItem.monto = monto;
+            } else if (categoria === 'obra') {
+                const detalle = document.getElementById('detalle').value;
+                const monto = parseFloat(document.getElementById('montoObra').value) || 0;
+                if (detalle) nuevoItem.detalle = detalle;
+                if (monto > 0) nuevoItem.monto = monto;
+            } else if (categoria === 'comunicacion') {
+                const remitente = document.getElementById('remitente').value;
+                const destinatario = document.getElementById('destinatario').value;
+                if (remitente) nuevoItem.remitente = remitente;
+                if (destinatario) nuevoItem.destinatario = destinatario;
+            }
+            
+            if (editandoItem !== null) {
+                // Editando evento existente
+                data.eventos[editandoItem] = nuevoItem;
+                mostrarToast('✅ Evento actualizado correctamente', 'success');
+            } else {
+                // Nuevo evento
+                data.eventos.push(nuevoItem);
+                mostrarToast('✅ Nuevo evento agregado', 'success');
+            }
+            
+            // Recalcular totales
+            recalcularTotales();
+            
+            // Guardar en localStorage
+            guardarEnLocalStorage();
+            
+            // Cerrar formulario y re-renderizar
+            cerrarFormulario();
+            renderTimeline();
+            
+            // Scroll hasta el nuevo evento
+            setTimeout(() => {
+                const nuevosItems = document.querySelectorAll('.timeline-item');
+                if (nuevosItems.length > 0) {
+                    nuevosItems[nuevosItems.length - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 300);
+        }
+
+        // Función para editar un evento
+        function editarEvento(index) {
+            mostrarFormularioAgregar(index);
+        }
+
+        // Función para eliminar un evento
+        function eliminarEvento(index) {
+            const item = data.eventos[index];
+            if (confirm(`¿Estás seguro de eliminar este evento?\n\n"${item.descripcion}"\n\nEsta acción no se puede deshacer.`)) {
+                data.eventos.splice(index, 1);
+                recalcularTotales();
+                guardarEnLocalStorage();
+                renderTimeline();
+                mostrarToast('🗑️ Evento eliminado', 'info');
+            }
+        }
+
+        // Función para cerrar el formulario
+        function cerrarFormulario() {
+            document.getElementById('modalFormulario').classList.add('hidden');
+            editandoItem = null;
+        }
+
+        // Función para mostrar los totales financieros (hardcodeados de tabla-computo.md)
+        function recalcularTotales() {
+            // Valores hardcodeados de tabla-computo.md
+            const totalMateriales = 2750682;
+            const totalObra = 3459400;
+            const totalInversion = totalMateriales + totalObra;
+            
+            // Actualizar el resumen_financiero en data
+            data.resumen_financiero = {
+                total_materiales: totalMateriales,
+                total_mano_obra: totalObra,
+                total_inversion: totalInversion
+            };
+            
+            // Mostrar en la interfaz
+            document.getElementById('totalMateriales').textContent = formatCurrency(totalMateriales);
+            document.getElementById('totalObra').textContent = formatCurrency(totalObra);
+            document.getElementById('totalInversion').textContent = formatCurrency(totalInversion);
+        }
+
+        // Función para mostrar el detalle de comunicaciones con opción de editar
+        function mostrarDetalleComunicaciones(fecha) {
+            let contenido = '';
+            let grupoActual = null;
+            
+            // Buscar en todas las categorías de comunicaciones
+            const grupos = ['peyrano_stella', 'sebastian', 'juan_jose'];
+            const nombresGrupos = {
+                'peyrano_stella': 'Peyrano Stella (Mamá)',
+                'sebastian': 'Sebastián (hermano)',
+                'juan_jose': 'Juan José (Abogado)'
+            };
+
+            // Primero buscar en comunicaciones_detalladas
+            for (const grupo of grupos) {
+                if (data.comunicaciones_detalladas && data.comunicaciones_detalladas[grupo]) {
+                    const conversacion = data.comunicaciones_detalladas[grupo].find(c => c.fecha === fecha);
+                    if (conversacion) {
+                        grupoActual = grupo;
+                        contenido += `
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-xl font-bold text-purple-400">${nombresGrupos[grupo]}</h3>
+                                <button onclick="agregarMensaje('${fecha}', '${grupo}')" 
+                                        class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    </svg>
+                                    Agregar Mensaje
+                                </button>
+                            </div>
+                            <p class="text-gray-400 text-sm mb-4">📅 ${formatDate(fecha)}</p>
+                            <div class="space-y-3 max-h-[60vh] overflow-y-auto scrollbar-thin" id="mensajesContainer">
+                        `;
+                        
+                        conversacion.mensajes.forEach((msg, index) => {
+                            const isMaru = msg.remitente === 'Maru';
+                            contenido += `
+                                <div class="flex ${isMaru ? 'justify-end' : 'justify-start'} mensaje-item" data-grupo="${grupo}" data-index="${index}">
+                                    <div class="message-bubble ${isMaru ? 'bg-blue-600' : 'bg-dark-300'} rounded-lg p-3 ${isMaru ? 'text-white' : 'text-gray-300'} relative group">
+                                        <div class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
+                                            <button onclick="editarMensaje('${fecha}', '${grupo}', ${index})" 
+                                                    class="p-1 bg-blue-500/50 hover:bg-blue-500 rounded text-white" title="Editar">
+                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                </svg>
+                                            </button>
+                                            <button onclick="eliminarMensaje('${fecha}', '${grupo}', ${index})" 
+                                                    class="p-1 bg-red-500/50 hover:bg-red-500 rounded text-white" title="Eliminar">
+                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <p class="text-xs ${isMaru ? 'text-blue-200' : 'text-gray-500'} mb-1">${msg.hora} - ${msg.remitente}</p>
+                                        <p class="text-sm">${msg.contenido}</p>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        
+                        contenido += '</div>';
+                        break;
+                    }
+                }
+            }
+
+            // Si no encontró en comunicaciones_detalladas, buscar en eventos
+            if (!contenido) {
+                const eventoCom = data.eventos.find(e => e.fecha === fecha && e.categoria === 'comunicacion');
+                if (eventoCom) {
+                    // Determinar el grupo basándose en el evento
+                    let grupo = 'peyrano_stella';
+                    if (eventoCom.destinatario === 'Sebastián' || eventoCom.remitente === 'Sebastián') {
+                        grupo = 'sebastian';
+                    } else if (eventoCom.remitente?.includes('Juan José') || eventoCom.remitente === 'María del Carmen') {
+                        grupo = 'juan_jose';
+                    }
+                    
+                    grupoActual = grupo;
+                    
+                    // Inicializar la conversación si no existe
+                    if (!data.comunicaciones_detalladas[grupo]) {
+                        data.comunicaciones_detalladas[grupo] = [];
+                    }
+                    
+                    let conversacion = data.comunicaciones_detalladas[grupo].find(c => c.fecha === fecha);
+                    if (!conversacion) {
+                        conversacion = {
+                            fecha: fecha,
+                            mensajes: []
+                        };
+                        data.comunicaciones_detalladas[grupo].push(conversacion);
+                    }
+                    
+                    contenido += `
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-purple-400">${nombresGrupos[grupo]}</h3>
+                            <button onclick="agregarMensaje('${fecha}', '${grupo}')" 
+                                    class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                </svg>
+                                Agregar Mensaje
+                            </button>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">📅 ${formatDate(fecha)}</p>
+                        <div class="space-y-3 max-h-[60vh] overflow-y-auto scrollbar-thin" id="mensajesContainer">
+                            <p class="text-gray-500 text-center py-8">No hay mensajes registrados. Haz clic en "Agregar Mensaje" para comenzar.</p>
+                        </div>
+                    `;
+                    
+                    guardarEnLocalStorage();
+                }
+            }
+
+            if (!contenido) {
+                contenido = '<p class="text-gray-400">No se encontró esta comunicación.</p>';
+            }
+
+            document.getElementById('modalContent').innerHTML = contenido;
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        // Función para agregar un nuevo mensaje
+        function agregarMensaje(fecha, grupo) {
+            const contenido = prompt('Ingresa el contenido del mensaje:');
+            if (!contenido || !contenido.trim()) {
+                mostrarToast('⚠️ El mensaje no puede estar vacío', 'error');
+                return;
+            }
+
+            const hora = prompt('Ingresa la hora del mensaje (formato HH:MM):', new Date().toLocaleTimeString('es-AR', {hour: '2-digit', minute: '2-digit'}));
+            if (!hora || !hora.trim()) {
+                mostrarToast('⚠️ La hora no puede estar vacía', 'error');
+                return;
+            }
+
+            const remitente = prompt('Ingresa el nombre del remitente:', 'Maru');
+            if (!remitente || !remitente.trim()) {
+                mostrarToast('⚠️ El remitente no puede estar vacío', 'error');
+                return;
+            }
+
+            // Buscar o crear la conversación
+            let conversacion = data.comunicaciones_detalladas[grupo].find(c => c.fecha === fecha);
+            if (!conversacion) {
+                conversacion = { fecha: fecha, mensajes: [] };
+                data.comunicaciones_detalladas[grupo].push(conversacion);
+            }
+
+            // Agregar el mensaje
+            conversacion.mensajes.push({
+                hora: hora.trim(),
+                remitente: remitente.trim(),
+                contenido: contenido.trim()
+            });
+
+            guardarEnLocalStorage();
+            mostrarDetalleComunicaciones(fecha);
+            mostrarToast('✅ Mensaje agregado correctamente', 'success');
+        }
+
+        // Función para editar un mensaje
+        function editarMensaje(fecha, grupo, index) {
+            const conversacion = data.comunicaciones_detalladas[grupo].find(c => c.fecha === fecha);
+            if (!conversacion || !conversacion.mensajes[index]) {
+                mostrarToast('⚠️ No se encontró el mensaje', 'error');
+                return;
+            }
+
+            const msg = conversacion.mensajes[index];
+            const nuevoContenido = prompt('Edita el contenido del mensaje:', msg.contenido);
+            if (nuevoContenido === null) return; // Usuario canceló
+            
+            if (!nuevoContenido.trim()) {
+                mostrarToast('⚠️ El mensaje no puede estar vacío', 'error');
+                return;
+            }
+
+            const nuevaHora = prompt('Edita la hora del mensaje:', msg.hora);
+            if (nuevaHora === null) return;
+            
+            const nuevoRemitente = prompt('Edita el nombre del remitente:', msg.remitente);
+            if (nuevoRemitente === null) return;
+
+            // Actualizar el mensaje
+            msg.contenido = nuevoContenido.trim();
+            if (nuevaHora.trim()) msg.hora = nuevaHora.trim();
+            if (nuevoRemitente.trim()) msg.remitente = nuevoRemitente.trim();
+
+            guardarEnLocalStorage();
+            mostrarDetalleComunicaciones(fecha);
+            mostrarToast('✅ Mensaje actualizado', 'success');
+        }
+
+        // Función para eliminar un mensaje
+        function eliminarMensaje(fecha, grupo, index) {
+            const conversacion = data.comunicaciones_detalladas[grupo].find(c => c.fecha === fecha);
+            if (!conversacion || !conversacion.mensajes[index]) {
+                mostrarToast('⚠️ No se encontró el mensaje', 'error');
+                return;
+            }
+
+            const msg = conversacion.mensajes[index];
+            if (confirm(`¿Estás seguro de eliminar este mensaje?\n\n"${msg.contenido.substring(0, 50)}..."\n\nDe: ${msg.remitente} - ${msg.hora}`)) {
+                conversacion.mensajes.splice(index, 1);
+                guardarEnLocalStorage();
+                mostrarDetalleComunicaciones(fecha);
+                mostrarToast('🗑️ Mensaje eliminado', 'info');
+            }
+        }
+
+        // Función para cerrar el modal
+        function cerrarModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        // Función para filtrar por categoría
+        function filtrarPorCategoria(categoria) {
+            categoriaActual = categoria;
+            
+            // Actualizar botones de filtro
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.categoria === categoria) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Mostrar/ocultar filtro de persona
+            const filtroPersona = document.getElementById('filtroPersona');
+            if (categoria === 'comunicacion') {
+                filtroPersona.classList.remove('hidden');
+            } else {
+                filtroPersona.classList.add('hidden');
+            }
+
+            // Si es comunicación, mantener el filtro de persona actual
+            if (categoria !== 'comunicacion') {
+                personaActual = 'todas';
+            }
+
+            renderTimeline();
+        }
+
+        // Función para filtrar por persona
+        function filtrarPorPersona(persona) {
+            personaActual = persona;
+            
+            // Actualizar botones
+            document.querySelectorAll('.persona-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-purple-500', 'text-white');
+                btn.classList.add('bg-dark-300', 'text-gray-400');
+                if (btn.dataset.persona === persona) {
+                    btn.classList.add('active', 'bg-purple-500', 'text-white');
+                    btn.classList.remove('bg-dark-300', 'text-gray-400');
+                }
+            });
+
+            renderTimeline();
+        }
+
+        // Función para renderizar el timeline
+        function renderTimeline() {
+            const timeline = document.getElementById('timeline');
+            const noResults = document.getElementById('noResults');
+            const indiceLateral = document.getElementById('indiceLateral');
+            const indiceLista = document.getElementById('indiceLista');
+            
+            // Filtrar eventos
+            let filteredItems = data.eventos.filter(item => {
+                let pasaCategoria = categoriaActual === 'todos' || item.categoria === categoriaActual;
+                let pasaPersona = true;
+
+                if (categoriaActual === 'comunicacion' && personaActual !== 'todas') {
+                    // Determinar el grupo de comunicación del item
+                    let grupoCom = '';
+                    if (item.destinatario === 'Mamá' || item.remitente === 'Mamá' || (item.remitente === 'Maru' && item.destinatario?.includes('Mamá'))) {
+                        grupoCom = 'peyrano_stella';
+                    } else if (item.destinatario === 'Sebastián' || item.remitente === 'Sebastián') {
+                        grupoCom = 'sebastian';
+                    } else if (item.remitente?.includes('Juan José') || item.remitente === 'María del Carmen' || item.remitente === 'Ambas partes') {
+                        grupoCom = 'juan_jose';
+                    }
+                    pasaPersona = grupoCom === personaActual;
+                }
+
+                return pasaCategoria && pasaPersona;
+            });
+
+            // Ordenar por fecha
+            filteredItems.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+
+            if (filteredItems.length === 0) {
+                noResults.classList.remove('hidden');
+                timeline.innerHTML = '<div class="timeline-line"></div>';
+                indiceLateral.classList.add('hidden');
+                return;
+            }
+
+            noResults.classList.add('hidden');
+            indiceLateral.classList.remove('hidden');
+
+            // Generar HTML del timeline
+            let html = '<div class="timeline-line"></div>';
+            
+            filteredItems.forEach((item, index) => {
+                // Encontrar el índice real en el array original
+                const realIndex = data.eventos.findIndex(e => 
+                    e.fecha === item.fecha && e.descripcion === item.descripcion
+                );
+                const isLeft = index % 2 === 0;
+                html += createTimelineItem(item, realIndex, isLeft);
+            });
+
+            timeline.innerHTML = html;
+
+            // Generar HTML del índice lateral
+            let indiceHTML = '';
+            filteredItems.forEach((item, index) => {
+                const color = getCategoryColor(item.categoria);
+                const shortDesc = item.descripcion.length > 30 ? item.descripcion.substring(0, 30) + '...' : item.descripcion;
+                
+                indiceHTML += `
+                    <button onclick="scrollToItem(${index})" 
+                            class="indice-item w-full text-left p-2 rounded-lg hover:bg-dark-300 transition-colors group"
+                            data-index="${index}">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="${color.text} text-xs">${color.icon}</span>
+                            <span class="text-gray-400 text-xs">${item.categoria.charAt(0).toUpperCase() + item.categoria.slice(1)}</span>
+                        </div>
+                        <div class="text-gray-300 text-sm font-medium mb-1">${formatDate(item.fecha)}</div>
+                        <div class="text-gray-500 text-xs group-hover:text-gray-300 transition-colors">${shortDesc}</div>
+                    </button>
+                `;
+            });
+
+            indiceLista.innerHTML = indiceHTML;
+
+            // Aplicar animaciones con Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible', 'animate-fade-in');
+                        
+                        // Actualizar índice activo
+                        const index = entry.target.dataset.id;
+                        actualizarIndiceActivo(index);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                observer.observe(item);
+            });
+        }
+
+        // Función para actualizar el índice activo
+        function actualizarIndiceActivo(index) {
+            document.querySelectorAll('.indice-item').forEach((item, i) => {
+                if (parseInt(item.dataset.index) === parseInt(index)) {
+                    item.classList.add('bg-purple-600/30', 'border-l-4', 'border-purple-500');
+                    item.classList.remove('hover:bg-dark-300');
+                } else {
+                    item.classList.remove('bg-purple-600/30', 'border-l-4', 'border-purple-500');
+                    item.classList.add('hover:bg-dark-300');
+                }
+            });
+        }
+
+        // Función para hacer scroll a un item específico
+        function scrollToItem(index) {
+            const items = document.querySelectorAll('.timeline-item');
+            if (items[index]) {
+                items[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                actualizarIndiceActivo(index);
+            }
+        }
+
+        // Cargar datos y renderizar
+        async function inicializarDatos() {
+            // Primero intentar cargar desde localStorage
+            let localData = cargarDesdeLocalStorage();
+            
+            if (localData) {
+                // Usar datos guardados en localStorage
+                data = localData;
+                dataOriginal = JSON.parse(JSON.stringify(localData));
+                mostrarToast('📂 Cargando datos guardados...', 'info');
+            } else {
+                // Cargar desde archivo JSON
+                try {
+                    const response = await fetch('historico-data.json');
+                    if (response.ok) {
+                        data = await response.json();
+                        dataOriginal = JSON.parse(JSON.stringify(data));
+                        // Guardar en localStorage
+                        guardarEnLocalStorage();
+                        mostrarToast('📥 Datos cargados desde archivo', 'success');
+                    } else {
+                        throw new Error('No se pudo cargar el archivo');
+                    }
+                } catch (error) {
+                    console.error('Error al cargar los datos:', error);
+                    // Crear estructura inicial vacía
+                    data = {
+                        eventos: [],
+                        comunicaciones_detalladas: {
+                            peyrano_stella: [],
+                            sebastian: [],
+                            juan_jose: []
+                        },
+                        resumen_financiero: {
+                            total_materiales: 0,
+                            total_mano_obra: 0,
+                            total_inversion: 0
+                        }
+                    };
+                    dataOriginal = JSON.parse(JSON.stringify(data));
+                    mostrarToast('⚠️ No se encontraron datos. Puedes agregar nuevos eventos.', 'info');
+                }
+            }
+            
+            // Actualizar totales
+            recalcularTotales();
+            
+            // Renderizar timeline
+            renderTimeline();
+        }
+
+        // Inicializar al cargar la página
+        inicializarDatos();
+
+        // Auto-guardado antes de cerrar la página
+        window.addEventListener('beforeunload', function(event) {
+            if (datosModificados()) {
+                guardarEnLocalStorage();
+                // Mostrar confirmación al usuario
+                event.preventDefault();
+                event.returnValue = '';
+            }
+        });
+
+        // Guardar automáticamente cada 30 segundos si hay cambios
+        setInterval(() => {
+            if (datosModificados()) {
+                guardarEnLocalStorage();
+            }
+        }, 30000);
+
+        // Cerrar modal al hacer clic fuera
+        document.getElementById('modalFormulario').addEventListener('click', (e) => {
+            if (e.target.id === 'modalFormulario') {
+                cerrarFormulario();
+            }
+        });
+
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.id === 'modal') {
+                cerrarModal();
+            }
+        });
+
+        // Cerrar modal con Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                cerrarFormulario();
+                cerrarModal();
+            }
+        });
+
+        // Función para formatear fecha para Excel
+        function formatDateExcel(dateStr) {
+            const date = new Date(dateStr.replace(/-/g, '/'));
+            return date.toLocaleDateString('es-AR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        }
+
+        // Función para obtener nombre de categoría en español
+        function getCategoriaNombre(categoria) {
+            const nombres = {
+                'evento': 'Evento',
+                'compra': 'Compra',
+                'obra': 'Obra',
+                'comunicacion': 'Comunicación'
+            };
+            return nombres[categoria] || categoria;
+        }
+
+        // Función para exportar TODOS los datos a Excel
+        function exportarAExcel() {
+            if (!data || !data.eventos || data.eventos.length === 0) {
+                mostrarToast('⚠️ No hay datos para exportar', 'error');
+                return;
+            }
+
+            // Preparar datos para la hoja principal
+            const eventosData = data.eventos.map((item, index) => {
+                let monto = '';
+                let detalle = '';
+                let proveedor = '';
+                let remitente = '';
+                let destinatario = '';
+
+                if (item.categoria === 'compra') {
+                    monto = item.monto || '';
+                    proveedor = item.proveedor || '';
+                } else if (item.categoria === 'obra') {
+                    monto = item.monto || '';
+                    detalle = item.detalle || '';
+                } else if (item.categoria === 'comunicacion') {
+                    remitente = item.remitente || '';
+                    destinatario = item.destinatario || '';
+                }
+
+                return {
+                    'N°': index + 1,
+                    'Fecha': formatDateExcel(item.fecha),
+                    'Categoría': getCategoriaNombre(item.categoria),
+                    'Descripción': item.descripcion || '',
+                    'Proveedor': proveedor,
+                    'Monto (ARS)': monto,
+                    'Detalle': detalle,
+                    'Remitente': remitente,
+                    'Destinatario': destinatario
+                };
+            });
+
+            // Ordenar por fecha
+            eventosData.sort((a, b) => {
+                const dateA = new Date(data.eventos[eventosData.indexOf(a)].fecha);
+                const dateB = new Date(data.eventos[eventosData.indexOf(b)].fecha);
+                return dateA - dateB;
+            });
+
+            // Recalcular números después de ordenar
+            eventosData.forEach((item, index) => {
+                item['N°'] = index + 1;
+            });
+
+            // Crear workbook
+            const wb = XLSX.utils.book_new();
+
+            // Hoja 1: Todos los eventos
+            const wsEventos = XLSX.utils.json_to_sheet(eventosData);
+
+            // Configurar ancho de columnas
+            wsEventos['!cols'] = [
+                { wch: 5 },   // N°
+                { wch: 12 },  // Fecha
+                { wch: 15 },  // Categoría
+                { wch: 60 },  // Descripción
+                { wch: 25 },  // Proveedor
+                { wch: 15 },  // Monto
+                { wch: 40 },  // Detalle
+                { wch: 20 },  // Remitente
+                { wch: 20 }   // Destinatario
+            ];
+
+            XLSX.utils.book_append_sheet(wb, wsEventos, 'Eventos');
+
+            // Hoja 2: Resumen Financiero
+            const resumenData = [
+                { 'Concepto': 'Total Materiales (Compras)', 'Monto (ARS)': data.resumen_financiero.total_materiales },
+                { 'Concepto': 'Total Mano de Obra (Obras)', 'Monto (ARS)': data.resumen_financiero.total_mano_obra },
+                { 'Concepto': 'TOTAL INVERSIÓN', 'Monto (ARS)': data.resumen_financiero.total_inversion }
+            ];
+
+            const wsResumen = XLSX.utils.json_to_sheet(resumenData);
+            wsResumen['!cols'] = [
+                { wch: 40 },
+                { wch: 20 }
+            ];
+
+            XLSX.utils.book_append_sheet(wb, wsResumen, 'Resumen Financiero');
+
+            // Hoja 3: Compras detalladas
+            const comprasData = data.eventos
+                .filter(item => item.categoria === 'compra')
+                .map((item, index) => ({
+                    'N°': index + 1,
+                    'Fecha': formatDateExcel(item.fecha),
+                    'Descripción': item.descripcion || '',
+                    'Proveedor': item.proveedor || '',
+                    'Monto (ARS)': item.monto || 0
+                }))
+                .sort((a, b) => new Date(a['Fecha']) - new Date(b['Fecha']));
+
+            if (comprasData.length > 0) {
+                const wsCompras = XLSX.utils.json_to_sheet(comprasData);
+                wsCompras['!cols'] = [
+                    { wch: 5 },
+                    { wch: 12 },
+                    { wch: 60 },
+                    { wch: 25 },
+                    { wch: 15 }
+                ];
+                XLSX.utils.book_append_sheet(wb, wsCompras, 'Compras');
+            }
+
+            // Hoja 4: Obras detalladas
+            const obrasData = data.eventos
+                .filter(item => item.categoria === 'obra')
+                .map((item, index) => ({
+                    'N°': index + 1,
+                    'Fecha': formatDateExcel(item.fecha),
+                    'Detalle': item.detalle || '',
+                    'Descripción': item.descripcion || '',
+                    'Monto (ARS)': item.monto || 0
+                }))
+                .sort((a, b) => new Date(a['Fecha']) - new Date(b['Fecha']));
+
+            if (obrasData.length > 0) {
+                const wsObras = XLSX.utils.json_to_sheet(obrasData);
+                wsObras['!cols'] = [
+                    { wch: 5 },
+                    { wch: 12 },
+                    { wch: 40 },
+                    { wch: 60 },
+                    { wch: 15 }
+                ];
+                XLSX.utils.book_append_sheet(wb, wsObras, 'Obras');
+            }
+
+            // Hoja 5: Comunicaciones
+            const comunicacionesData = data.eventos
+                .filter(item => item.categoria === 'comunicacion')
+                .map((item, index) => ({
+                    'N°': index + 1,
+                    'Fecha': formatDateExcel(item.fecha),
+                    'Descripción': item.descripcion || '',
+                    'Remitente': item.remitente || '',
+                    'Destinatario': item.destinatario || ''
+                }))
+                .sort((a, b) => new Date(a['Fecha']) - new Date(b['Fecha']));
+
+            if (comunicacionesData.length > 0) {
+                const wsComunicaciones = XLSX.utils.json_to_sheet(comunicacionesData);
+                wsComunicaciones['!cols'] = [
+                    { wch: 5 },
+                    { wch: 12 },
+                    { wch: 60 },
+                    { wch: 20 },
+                    { wch: 20 }
+                ];
+                XLSX.utils.book_append_sheet(wb, wsComunicaciones, 'Comunicaciones');
+            }
+
+            // Generar nombre de archivo con fecha
+            const fecha = new Date().toISOString().split('T')[0];
+            const nombreArchivo = `Timeline_Casa_Tito_${fecha}.xlsx`;
+
+            // Descargar archivo
+            XLSX.writeFile(wb, nombreArchivo);
+            mostrarToast('✅ Excel exportado exitosamente', 'success');
+        }
+
+        // Función para exportar solo la vista filtrada actual
+        function exportarAExcelFiltrado() {
+            if (!data || !data.eventos || data.eventos.length === 0) {
+                mostrarToast('⚠️ No hay datos para exportar', 'error');
+                return;
+            }
+
+            // Aplicar los mismos filtros que se usan en renderTimeline
+            let filteredItems = data.eventos.filter(item => {
+                let pasaCategoria = categoriaActual === 'todos' || item.categoria === categoriaActual;
+                let pasaPersona = true;
+
+                if (categoriaActual === 'comunicacion' && personaActual !== 'todas') {
+                    let grupoCom = '';
+                    if (item.destinatario === 'Mamá' || item.remitente === 'Mamá' || (item.remitente === 'Maru' && item.destinatario?.includes('Mamá'))) {
+                        grupoCom = 'peyrano_stella';
+                    } else if (item.destinatario === 'Sebastián' || item.remitente === 'Sebastián') {
+                        grupoCom = 'sebastian';
+                    } else if (item.remitente?.includes('Juan José') || item.remitente === 'María del Carmen' || item.remitente === 'Ambas partes') {
+                        grupoCom = 'juan_jose';
+                    }
+                    pasaPersona = grupoCom === personaActual;
+                }
+
+                return pasaCategoria && pasaPersona;
+            });
+
+            if (filteredItems.length === 0) {
+                mostrarToast('⚠️ No hay datos con los filtros actuales', 'error');
+                return;
+            }
+
+            // Preparar datos
+            const exportData = filteredItems.map((item, index) => {
+                let monto = '';
+                let detalle = '';
+                let proveedor = '';
+                let remitente = '';
+                let destinatario = '';
+
+                if (item.categoria === 'compra') {
+                    monto = item.monto || '';
+                    proveedor = item.proveedor || '';
+                } else if (item.categoria === 'obra') {
+                    monto = item.monto || '';
+                    detalle = item.detalle || '';
+                } else if (item.categoria === 'comunicacion') {
+                    remitente = item.remitente || '';
+                    destinatario = item.destinatario || '';
+                }
+
+                return {
+                    'N°': index + 1,
+                    'Fecha': formatDateExcel(item.fecha),
+                    'Categoría': getCategoriaNombre(item.categoria),
+                    'Descripción': item.descripcion || '',
+                    'Proveedor': proveedor,
+                    'Monto (ARS)': monto,
+                    'Detalle': detalle,
+                    'Remitente': remitente,
+                    'Destinatario': destinatario
+                };
+            });
+
+            // Crear workbook
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.json_to_sheet(exportData);
+
+            // Configurar ancho de columnas
+            ws['!cols'] = [
+                { wch: 5 },   // N°
+                { wch: 12 },  // Fecha
+                { wch: 15 },  // Categoría
+                { wch: 60 },  // Descripción
+                { wch: 25 },  // Proveedor
+                { wch: 15 },  // Monto
+                { wch: 40 },  // Detalle
+                { wch: 20 },  // Remitente
+                { wch: 20 }   // Destinatario
+            ];
+
+            XLSX.utils.book_append_sheet(wb, ws, 'Vista Filtrada');
+
+            // Calcular totales de la vista filtrada
+            const totalMateriales = filteredItems
+                .filter(item => item.categoria === 'compra')
+                .reduce((sum, item) => sum + (item.monto || 0), 0);
+
+            const totalObras = filteredItems
+                .filter(item => item.categoria === 'obra')
+                .reduce((sum, item) => sum + (item.monto || 0), 0);
+
+            // Agregar totales
+            const resumenData = [
+                { 'Concepto': 'Total Materiales (Compras)', 'Monto (ARS)': totalMateriales },
+                { 'Concepto': 'Total Mano de Obra (Obras)', 'Monto (ARS)': totalObras },
+                { 'Concepto': 'TOTAL', 'Monto (ARS)': totalMateriales + totalObras }
+            ];
+
+            const wsResumen = XLSX.utils.json_to_sheet(resumenData);
+            wsResumen['!cols'] = [
+                { wch: 40 },
+                { wch: 20 }
+            ];
+
+            XLSX.utils.book_append_sheet(wb, wsResumen, 'Resumen');
+
+            // Generar nombre de archivo con filtros aplicados
+            const fecha = new Date().toISOString().split('T')[0];
+            const filtroTexto = categoriaActual === 'todos' ? 'Todos' : getCategoriaNombre(categoriaActual);
+            const nombreArchivo = `Timeline_${filtroTexto}_${fecha}.xlsx`;
+
+            // Descargar archivo
+            XLSX.writeFile(wb, nombreArchivo);
+            mostrarToast(`✅ Exportado: ${filtroTexto}`, 'success');
+        }
+
+        // Función para exportar todos los datos a JSON
+        function exportarAJSON() {
+            if (!data) {
+                mostrarToast('⚠️ No hay datos para exportar', 'error');
+                return;
+            }
+
+            // Crear objeto con los datos completos
+            const datosExportar = {
+                eventos: data.eventos,
+                comunicaciones_detalladas: data.comunicaciones_detalladas,
+                resumen_financiero: data.resumen_financiero,
+                metadata: {
+                    fecha_exportacion: new Date().toISOString(),
+                    version: '1.0',
+                    total_eventos: data.eventos.length
+                }
+            };
+
+            // Convertir a JSON con formato legible
+            const jsonString = JSON.stringify(datosExportar, null, 2);
+
+            // Crear blob y descargar
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            
+            // Nombre de archivo con fecha
+            const fecha = new Date().toISOString().split('T')[0];
+            a.download = `Timeline_Casa_Tito_${fecha}.json`;
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            mostrarToast('💾 JSON exportado exitosamente', 'success');
+        }
+
+        // Función para importar JSON
+        function importarJSON() {
+            // Simular click en el input file
+            document.getElementById('jsonFileInput').click();
+        }
+
+        // Función para procesar la importación de JSON
+        function procesarImportacionJSON(event) {
+            const file = event.target.files[0];
+            
+            if (!file) {
+                return;
+            }
+
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const jsonData = JSON.parse(e.target.result);
+                    
+                    // Validar que tenga la estructura correcta
+                    if (!jsonData.eventos || !Array.isArray(jsonData.eventos)) {
+                        throw new Error('Estructura de datos inválida');
+                    }
+
+                    // Confirmar antes de importar
+                    const confirmar = confirm(
+                        `¿Estás seguro de importar este archivo?\n\n` +
+                        `📊 Eventos: ${jsonData.eventos.length}\n` +
+                        `📅 Fecha del backup: ${jsonData.metadata?.fecha_exportacion || 'No disponible'}\n\n` +
+                        `⚠️ Esta acción reemplazará todos los datos actuales.`
+                    );
+
+                    if (!confirmar) {
+                        mostrarToast('❌ Importación cancelada', 'info');
+                        event.target.value = ''; // Limpiar input
+                        return;
+                    }
+
+                    // Importar los datos
+                    data = jsonData;
+                    dataOriginal = JSON.parse(JSON.stringify(jsonData));
+                    
+                    // Guardar en localStorage
+                    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(data));
+                    
+                    // Recalcular totales
+                    recalcularTotales();
+                    
+                    // Renderizar timeline
+                    renderTimeline();
+                    
+                    mostrarToast(`✅ JSON importado: ${data.eventos.length} eventos cargados`, 'success');
+                    
+                } catch (error) {
+                    console.error('Error al importar JSON:', error);
+                    mostrarToast('⚠️ Error al leer el archivo JSON. Verifica que sea un archivo válido.', 'error');
+                }
+            };
+
+            reader.onerror = function() {
+                mostrarToast('⚠️ Error al leer el archivo', 'error');
+            };
+
+            reader.readAsText(file);
+            
+            // Limpiar input después de procesar
+            event.target.value = '';
+        }
+
+        // Función para verificar la contraseña
+        function verificarContrasena(event) {
+            event.preventDefault();
+            
+            const contrasenaIngresada = document.getElementById('passwordInput').value;
+            const contrasenaCorrecta = '3055';
+            
+            if (contrasenaIngresada === contrasenaCorrecta) {
+                // Contraseña correcta
+                document.getElementById('passwordScreen').style.display = 'none';
+                document.getElementById('mainContent').classList.remove('hidden');
+                document.getElementById('mainContent').classList.add('container', 'mx-auto', 'px-4', 'py-8', 'max-w-full');
+                
+                // Guardar en localStorage que está autenticado
+                localStorage.setItem('timeline_authenticated', 'true');
+                
+                mostrarToast('🔓 Acceso concedido', 'success');
+                return false;
+            } else {
+                // Contraseña incorrecta
+                document.getElementById('passwordError').classList.remove('hidden');
+                document.getElementById('passwordInput').classList.add('border-red-500', 'focus:border-red-500');
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+                
+                // Quitar el error después de 3 segundos
+                setTimeout(() => {
+                    document.getElementById('passwordError').classList.add('hidden');
+                    document.getElementById('passwordInput').classList.remove('border-red-500', 'focus:border-red-500');
+                }, 3000);
+                
+                return false;
+            }
+        }
+
+        // Verificar si ya está autenticado al cargar la página
+        function verificarAutenticacion() {
+            const autenticado = localStorage.getItem('timeline_authenticated');
+            
+            if (autenticado === 'true') {
+                // Ya está autenticado, mostrar contenido directamente
+                document.getElementById('passwordScreen').style.display = 'none';
+                document.getElementById('mainContent').classList.remove('hidden');
+                document.getElementById('mainContent').classList.add('container', 'mx-auto', 'px-4', 'py-8', 'max-w-full');
+            }
+        }
+
+        // Ejecutar verificación al cargar la página
+        window.addEventListener('DOMContentLoaded', verificarAutenticacion);
+    </script>
+</body>
+</html>

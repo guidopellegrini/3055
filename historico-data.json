@@ -1,0 +1,1058 @@
+{
+  "eventos": [
+    {
+      "fecha": "2023-09-23",
+      "descripcion": "Fallece Tito",
+      "categoria": "evento"
+    },
+    {
+      "fecha": "2023-09-23",
+      "descripcion": "La casa queda abandonada",
+      "categoria": "evento"
+    },
+    {
+      "fecha": "2023-10-10",
+      "descripcion": "Marina propone ir a la casa los fines de semana",
+      "categoria": "comunicacion",
+      "remitente": "Maru",
+      "destinatario": "Mamá"
+    },
+    {
+      "fecha": "2023-10-12",
+      "descripcion": "Acuerdo para encontrarse en la casa",
+      "categoria": "comunicacion",
+      "remitente": "Ambas partes",
+      "destinatario": "Ambas partes"
+    },
+    {
+      "fecha": "2023-10-13",
+      "descripcion": "Nos juntamos a hablar de la casa en la estación",
+      "categoria": "evento"
+    },
+    {
+      "fecha": "2024-03-29",
+      "descripcion": "Avisamos que nos vamos a ir a vivir a la casa",
+      "categoria": "evento"
+    },
+    {
+      "fecha": "2024-03-29",
+      "descripcion": "Notificación de traslado a la casa de Tito",
+      "categoria": "comunicacion",
+      "remitente": "Maru",
+      "destinatario": "Mamá y Sebastián"
+    },
+    {
+      "fecha": "2024-03-30",
+      "descripcion": "Mamá responde entendiendo la situación",
+      "categoria": "comunicacion",
+      "remitente": "Mamá",
+      "destinatario": "Maru"
+    },
+    {
+      "fecha": "2024-04-08",
+      "descripcion": "Sebastián pide la heladera de Tito",
+      "categoria": "comunicacion",
+      "remitente": "Sebastián",
+      "destinatario": "Maru"
+    },
+    {
+      "fecha": "2024-04-12",
+      "descripcion": "Compra de materiales - Prestigio S.A.",
+      "categoria": "compra",
+      "proveedor": "Prestigio S.A.",
+      "monto": 170297.28
+    },
+    {
+      "fecha": "2024-04-12",
+      "descripcion": "Compra de materiales - Easy",
+      "categoria": "compra",
+      "proveedor": "Easy",
+      "monto": 497037.50
+    },
+    {
+      "fecha": "2024-04-14",
+      "descripcion": "Compra de materiales - Easy",
+      "categoria": "compra",
+      "proveedor": "Easy",
+      "monto": 375531.75
+    },
+    {
+      "fecha": "2024-04-15",
+      "descripcion": "Compra de materiales - Acosta Mendoza",
+      "categoria": "compra",
+      "proveedor": "Acosta Mendoza",
+      "monto": 38316.50
+    },
+    {
+      "fecha": "2024-04-16",
+      "descripcion": "Recepción de placares",
+      "categoria": "evento"
+    },
+    {
+      "fecha": "2024-04-16",
+      "descripcion": "Compra de materiales - Diseños Modernos S.A.",
+      "categoria": "compra",
+      "proveedor": "Diseños Modernos S.A.",
+      "monto": 559998.00
+    },
+    {
+      "fecha": "2024-04-17",
+      "descripcion": "Compra de materiales - Tersuave Alto Color",
+      "categoria": "compra",
+      "proveedor": "Tersuave Alto Color",
+      "monto": 11729.70
+    },
+    {
+      "fecha": "2024-04-17",
+      "descripcion": "Compra de materiales - Tersuave Alto Color",
+      "categoria": "compra",
+      "proveedor": "Tersuave Alto Color",
+      "monto": 43420.35
+    },
+    {
+      "fecha": "2024-04-19",
+      "descripcion": "Compra de materiales - Acosta Mendoza",
+      "categoria": "compra",
+      "proveedor": "Acosta Mendoza",
+      "monto": 25050.00
+    },
+    {
+      "fecha": "2024-04-19",
+      "descripcion": "Compra de materiales - R Pinturerías",
+      "categoria": "compra",
+      "proveedor": "R Pinturerías",
+      "monto": 93996.83
+    },
+    {
+      "fecha": "2024-04-20",
+      "descripcion": "Comenzamos las reparaciones de la casa",
+      "categoria": "evento"
+    },
+    {
+      "fecha": "2024-04-20",
+      "descripcion": "Mano de obra - Pintura Especial para Azulejos y Bajomesada",
+      "categoria": "obra",
+      "detalle": "Pintura Especial para Azulejos y Bajomesada",
+      "monto": 56000.00
+    },
+    {
+      "fecha": "2024-04-30",
+      "descripcion": "Mano de obra - Laca Piso Madera",
+      "categoria": "obra",
+      "detalle": "Laca Piso Madera",
+      "monto": 55350.00
+    },
+    {
+      "fecha": "2024-04-22",
+      "descripcion": "Compra de materiales - R Pinturerías",
+      "categoria": "compra",
+      "proveedor": "R Pinturerías",
+      "monto": 27887.16
+    },
+    {
+      "fecha": "2024-04-23",
+      "descripcion": "Compra de materiales - R Pinturerías",
+      "categoria": "compra",
+      "proveedor": "R Pinturerías",
+      "monto": 50231.87
+    },
+    {
+      "fecha": "2024-04-27",
+      "descripcion": "Nos mudamos a la casa",
+      "categoria": "evento"
+    },
+    {
+      "fecha": "2024-05-10",
+      "descripcion": "Mano de obra - Pintura Latex Interior Etapa 1",
+      "categoria": "obra",
+      "detalle": "Pintura Latex Interior (Etapa 1: Preparación y primeras manos)",
+      "monto": 600000.00
+    },
+    {
+      "fecha": "2024-05-20",
+      "descripcion": "Mano de obra - Pintura Latex Exterior",
+      "categoria": "obra",
+      "detalle": "Pintura Latex Exterior",
+      "monto": 468000.00
+    },
+    {
+      "fecha": "2024-07-05",
+      "descripcion": "Mano de obra - Contrapiso y Carpeta Nivelacion",
+      "categoria": "obra",
+      "detalle": "Contrapiso y Carpeta Nivelacion",
+      "monto": 118750.00
+    },
+    {
+      "fecha": "2024-07-12",
+      "descripcion": "Mano de obra - Losa de Cerramiento Toldo Patio",
+      "categoria": "obra",
+      "detalle": "Losa de Cerramiento Toldo Patio",
+      "monto": 96300.00
+    },
+    {
+      "fecha": "2024-07-15",
+      "descripcion": "Mano de obra - Cerramiento Claraboya",
+      "categoria": "obra",
+      "detalle": "Cerramiento Claraboya",
+      "monto": 8000.00
+    },
+    {
+      "fecha": "2024-08-05",
+      "descripcion": "Mano de obra - Pintura Esmalte Sintético",
+      "categoria": "obra",
+      "detalle": "Pintura Esmalte Sintético",
+      "monto": 98000.00
+    },
+    {
+      "fecha": "2024-06-25",
+      "descripcion": "Compra de materiales - Easy",
+      "categoria": "compra",
+      "proveedor": "Easy",
+      "monto": 140505.00
+    },
+    {
+      "fecha": "2024-06-25",
+      "descripcion": "Compra de materiales - Easy",
+      "categoria": "compra",
+      "proveedor": "Easy",
+      "monto": 80017.00
+    },
+    {
+      "fecha": "2024-07-24",
+      "descripcion": "Compra de materiales - Daniel Francisco Novara",
+      "categoria": "compra",
+      "proveedor": "Daniel Francisco Novara",
+      "monto": 119900.00
+    },
+    {
+      "fecha": "2024-08-20",
+      "descripcion": "Mano de obra - Pintura Latex Interior Etapa 2",
+      "categoria": "obra",
+      "detalle": "Pintura Latex Interior (Etapa 2: Avance intermedio)",
+      "monto": 700000.00
+    },
+    {
+      "fecha": "2024-09-25",
+      "descripcion": "Mano de obra - Alfombra Delos 22m2 + Pegamento",
+      "categoria": "obra",
+      "detalle": "Alfombra Delos 22m2 + Pegamento",
+      "monto": 132000.00
+    },
+    {
+      "fecha": "2024-07-29",
+      "descripcion": "Compra de materiales - Timaro SRL",
+      "categoria": "compra",
+      "proveedor": "Timaro SRL",
+      "monto": 153620.00
+    },
+    {
+      "fecha": "2024-10-15",
+      "descripcion": "Mano de obra - Pintura Impermeabilizante Exterior",
+      "categoria": "obra",
+      "detalle": "Pintura Impermeabilizante Exterior",
+      "monto": 423000.00
+    },
+    {
+      "fecha": "2024-08-19",
+      "descripcion": "Compra de materiales - Disbyte S.A.",
+      "categoria": "compra",
+      "proveedor": "Disbyte S.A.",
+      "monto": 41999.30
+    },
+    {
+      "fecha": "2024-08-23",
+      "descripcion": "Compra de materiales - Inomax",
+      "categoria": "compra",
+      "proveedor": "Inomax",
+      "monto": 28335.00
+    },
+    {
+      "fecha": "2024-09-16",
+      "descripcion": "Compra de materiales - Rivestimento SRL",
+      "categoria": "compra",
+      "proveedor": "Rivestimento SRL",
+      "monto": 393999.78
+    },
+    {
+      "fecha": "2024-10-30",
+      "descripcion": "Sebastián solicita que se venda la casa",
+      "categoria": "comunicacion",
+      "remitente": "Sebastián",
+      "destinatario": "Maru"
+    },
+    {
+      "fecha": "2025-01-23",
+      "descripcion": "Compra de materiales - Easy",
+      "categoria": "compra",
+      "proveedor": "Easy",
+      "monto": 168240.00
+    },
+    {
+      "fecha": "2025-01-31",
+      "descripcion": "Terminamos las reparaciones de la casa",
+      "categoria": "evento"
+    },
+    {
+      "fecha": "2025-01-31",
+      "descripcion": "Mano de obra - Pintura Latex Interior Etapa 3",
+      "categoria": "obra",
+      "detalle": "Pintura Latex Interior (Etapa 3: Retoques finales y cierre)",
+      "monto": 704000.00
+    },
+    {
+      "fecha": "2025-02-26",
+      "descripcion": "Marina confronta a Sebastián sobre el juicio",
+      "categoria": "comunicacion",
+      "remitente": "Maru",
+      "destinatario": "Sebastián"
+    },
+    {
+      "fecha": "2025-04-28",
+      "descripcion": "Llega la citacion para la mediacion (Tia Mari)",
+      "categoria": "evento"
+    },
+    {
+      "fecha": "2025-05-12",
+      "descripcion": "Contacto inicial con el abogado Juan José",
+      "categoria": "comunicacion",
+      "remitente": "María del Carmen Zambruno",
+      "destinatario": "Juan José"
+    },
+    {
+      "fecha": "2025-05-14",
+      "descripcion": "Videollamada entre abogados",
+      "categoria": "comunicacion",
+      "remitente": "Ambos abogados",
+      "destinatario": "Videollamada"
+    },
+    {
+      "fecha": "2025-05-19",
+      "descripcion": "Llamada entre abogados",
+      "categoria": "comunicacion",
+      "remitente": "Ambos abogados",
+      "destinatario": "Llamada"
+    },
+    {
+      "fecha": "2025-05-23",
+      "descripcion": "Marina propone acuerdo a Sebastián",
+      "categoria": "comunicacion",
+      "remitente": "Maru",
+      "destinatario": "Sebastián"
+    },
+    {
+      "fecha": "2025-05-23",
+      "descripcion": "Juan José propone enfocarse en división de condominio",
+      "categoria": "comunicacion",
+      "remitente": "Juan José",
+      "destinatario": "María del Carmen Zambruno"
+    },
+    {
+      "fecha": "2025-05-29",
+      "descripcion": "Discusión sobre tasaciones y compensaciones",
+      "categoria": "comunicacion",
+      "remitente": "Ambos abogados",
+      "destinatario": "Ambos abogados"
+    },
+    {
+      "fecha": "2025-06-04",
+      "descripcion": "María del Carmen contacta a Juan José",
+      "categoria": "comunicacion",
+      "remitente": "María del Carmen Zambruno",
+      "destinatario": "Juan José"
+    },
+    {
+      "fecha": "2025-06-05",
+      "descripcion": "Acuerdo de llamada telefónica",
+      "categoria": "comunicacion",
+      "remitente": "Ambos abogados",
+      "destinatario": "Llamada"
+    },
+    {
+      "fecha": "2025-06-06",
+      "descripcion": "Enviamos Computo y Presupuesto de reparaciones y mejoras",
+      "categoria": "evento"
+    },
+    {
+      "fecha": "2023-12-01",
+      "descripcion": "Detectamos robo de televisores y Aires acondicionados",
+      "categoria": "evento"
+    },
+    {
+      "fecha": "2025-06-09",
+      "descripcion": "Enviamos documentacion fotografica y Nota de Reformas Necesarias",
+      "categoria": "evento"
+    },
+    {
+      "fecha": "2025-06-25",
+      "descripcion": "María del Carmen consulta sobre novedades",
+      "categoria": "comunicacion",
+      "remitente": "María del Carmen Zambruno",
+      "destinatario": "Juan José"
+    },
+    {
+      "fecha": "2025-06-26",
+      "descripcion": "Juan José de viaje, regresa fin de semana",
+      "categoria": "comunicacion",
+      "remitente": "Juan José",
+      "destinatario": "María del Carmen Zambruno"
+    },
+    {
+      "fecha": "2025-07-24",
+      "descripcion": "María del Carmen consulta sobre novedades",
+      "categoria": "comunicacion",
+      "remitente": "María del Carmen Zambruno",
+      "destinatario": "Juan José"
+    },
+    {
+      "fecha": "2025-08-20",
+      "descripcion": "Llamada entre abogados",
+      "categoria": "comunicacion",
+      "remitente": "Ambos abogados",
+      "destinatario": "Llamada"
+    },
+    {
+      "fecha": "2025-09-03",
+      "descripcion": "Discusión sobre reconocimiento de gastos e inversión",
+      "categoria": "comunicacion",
+      "remitente": "Ambos abogados",
+      "destinatario": "Ambos abogados"
+    },
+    {
+      "fecha": "2025-09-15",
+      "descripcion": "María del Carmen consulta sobre novedades",
+      "categoria": "comunicacion",
+      "remitente": "María del Carmen Zambruno",
+      "destinatario": "Juan José"
+    },
+    {
+      "fecha": "2025-09-25",
+      "descripcion": "Discusión sobre tiempo para mudanza y compensaciones",
+      "categoria": "comunicacion",
+      "remitente": "Ambos abogados",
+      "destinatario": "Ambos abogados"
+    },
+    {
+      "fecha": "2026-03-03",
+      "descripcion": "Llega la cedula del juicio (Tia Mari)",
+      "categoria": "evento"
+    }
+  ],
+  "comunicaciones_detalladas": {
+    "peyrano_stella": [
+      {
+        "fecha": "2023-10-10",
+        "mensajes": [
+          {
+            "hora": "09:27",
+            "remitente": "Maru",
+            "contenido": "Buen día ma! Estábamos viendo con Guido a ver cuándo podíamos ir nosotros también a estar un rato en la casa de Tito q vean q hay gente.. encontramos un momento para ir los fines de semana para limpiar y también aprovechar y tomar sol en la terraza que acá en el departamento no nos da el sol nunca 😢 nos quedamos mientras haya sol osea de día nada mas y nos volvemos acá al dpto apenas baja el sol, queríamos pagar central para ir a los predios pero no vamos a poder ni tampoco nos vamos a ir de viaje 😔"
+          },
+          {
+            "hora": "09:32",
+            "remitente": "Mamá",
+            "contenido": "Hola Maru este finde largo vamos con tu papa a desarmar los roperos para q Rosa se lleve junto con el lavarropas fijat para el otro finde"
+          },
+          {
+            "hora": "09:47",
+            "remitente": "Maru",
+            "contenido": "Sii este finde no podíamos ir igual, sería a partir del otro"
+          },
+          {
+            "hora": "09:52",
+            "remitente": "Mamá",
+            "contenido": "Eso arregla con Seba"
+          },
+          {
+            "hora": "10:16",
+            "remitente": "Maru",
+            "contenido": "Listo arreglado 🙂"
+          },
+          {
+            "hora": "10:46",
+            "remitente": "Maru",
+            "contenido": "Ma solo sacan los roperos y el lavarropas verdad? Todo lo demás que quede ahí en la casa para cuando vayamos todos poder usarlas no saquen nada más 🙏"
+          },
+          {
+            "hora": "12:08",
+            "remitente": "Mamá",
+            "contenido": "Se queda lo q nesecitamos yo saque lo q era d Tito ropa"
+          },
+          {
+            "hora": "12:29",
+            "remitente": "Maru",
+            "contenido": "Por eso ma, primero sacaron la ropa después el lavarropas y ahora los placares.. ya está.. por favor no saquen más nada de la casa.. que quede todo lo que hay o al menos pregúntanos al enano y a mi antes"
+          }
+        ]
+      },
+      {
+        "fecha": "2023-10-12",
+        "mensajes": [
+          {
+            "hora": "13:38",
+            "remitente": "Maru",
+            "contenido": "Ya me organice para poder mañana a las 3, arregla con Sebastián y confírmame"
+          },
+          {
+            "hora": "18:37",
+            "remitente": "Mamá",
+            "contenido": "Bien nos vemos mañana a las 3"
+          }
+        ]
+      },
+      {
+        "fecha": "2023-10-13",
+        "mensajes": [
+          {
+            "hora": "12:14",
+            "remitente": "Maru",
+            "contenido": "Me parece mejor juntarnos directamente en la estación ypf de Francia y Montevideo a las 3, nos vemos ahí mejor"
+          },
+          {
+            "hora": "12:40",
+            "remitente": "Mamá",
+            "contenido": "Bien"
+          }
+        ]
+      },
+      {
+        "fecha": "2024-03-29",
+        "mensajes": [
+          {
+            "hora": "16:35",
+            "remitente": "Maru",
+            "contenido": "Buenas tardes, quería avisarles que estamos pasando un momento muy difícil, Guido perdió el trabajo y ya no podemos pagar un alquiler únicamente con lo que gano yo. Es por eso que hoy nos tuvimos que trasladar para vivir a la casa de Tito por tiempo indefinido. A pesar del terrible estado en que se encuentra la casa no tenemos otro lugar donde vivir. Espero que entiendan la gravedad de la situación que estamos pasando, no tenemos otro techo. Muchas gracias. 🙏"
+          }
+        ]
+      },
+      {
+        "fecha": "2024-03-30",
+        "mensajes": [
+          {
+            "hora": "12:19",
+            "remitente": "Mamá",
+            "contenido": "Buen dia, entendemos la situacion podriamos encontrarnos el lunes para hablar para ver como seguimos 😥"
+          },
+          {
+            "hora": "12:21",
+            "remitente": "Maru",
+            "contenido": "Buen día, hablamos por acá lo que necesites hablar, pero yo no tengo otro lugar donde ir"
+          }
+        ]
+      }
+    ],
+    "sebastian": [
+      {
+        "fecha": "2024-03-29",
+        "mensajes": [
+          {
+            "hora": "16:34/35",
+            "remitente": "Maru",
+            "contenido": "Buenas tardes, quería avisarles que estamos pasando un momento muy difícil, Guido perdió el trabajo y ya no podemos pagar un alquiler únicamente con lo que gano yo. Es por eso que hoy nos tuvimos que trasladar para vivir a la casa de Tito por tiempo indefinido. A pesar del terrible estado en que se encuentra la casa no tenemos otro lugar donde vivir. Espero que entiendan la gravedad de la situación que estamos pasando, no tenemos otro techo. Muchas gracias. 🙏"
+          }
+        ]
+      },
+      {
+        "fecha": "2024-04-08",
+        "mensajes": [
+          {
+            "hora": "15:56",
+            "remitente": "Sebastián",
+            "contenido": "Hola mar nececito ir abuscar la heladera de Tito por q mi heladera se me rompió"
+          },
+          {
+            "hora": "16:15",
+            "remitente": "Maru",
+            "contenido": "Hola Seba la heladera de tito la estamos usando xq tuvimos q vender la nuestra"
+          },
+          {
+            "hora": "16:20",
+            "remitente": "Sebastián",
+            "contenido": "Bueno dale gracias"
+          }
+        ]
+      },
+      {
+        "fecha": "2024-10-30",
+        "mensajes": [
+          {
+            "hora": "10:14",
+            "remitente": "Sebastián",
+            "contenido": "Hola marina nesecito que hablemos respecto a la casa que necesito que se venda la casa"
+          },
+          {
+            "hora": "10:46",
+            "remitente": "Maru",
+            "contenido": "Hola sebastián no tengo donde ir que me querés dejar en la calle a tu propia hermana???? todos ustedes tienen casa y techo dónde vivir y no pagan alquiler, y yo no tengo otro lugar y no puedo pagar alquiler de ninguna manera me voy a ir"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-02-26",
+        "mensajes": [
+          {
+            "hora": "10:50",
+            "remitente": "Maru",
+            "contenido": "TE FUISTE A LA MIERDA ME QUERES DEJAR EN LA CALLE.. SOS UNA BASURA .. A MI QUE NUNCA TE HICE NADA Y SIEMPRE TE APOYE TE AYUDE TODA LA VIDA.. PREPARA MUCHO DINERO PORQUE VAS A TENER QUE PAGAR UN JUICIO MUY CARO NOSE SI SABES QUE CUESTA MUCHO DINERO UN JUICIO"
+          },
+          {
+            "hora": "10:52",
+            "remitente": "Maru",
+            "contenido": "Y ADEMAS EL USUFRUCTUARIO DEJO ABANDONADA LA CASA TIENE QUE PAGAR LOS ARREGLOS Y MEJORAS Y LOS IMPUESTOS DE TODO ESTE TIEMPO.. ADEMAS DEVOLVER TODOS LOS OBJETOS QUE SE LLEVARON.. Y TE AVISO QUE TODO EL JUICIO LO TIENEN QUE PAGAR USTEDES Y DURA AÑOS"
+          },
+          {
+            "hora": "10:54",
+            "remitente": "Maru",
+            "contenido": "Y CAPAZ RECIEN AHI DESPUES DE TODO ESO PUEDEN PEDIR UN PEQUEÑO PORCENTAJE DE ALQUILER Y NADA MAS"
+          },
+          {
+            "hora": "10:55",
+            "remitente": "Maru",
+            "contenido": "AAA Y DESPUES VAMOS A IR NOSOTROS A RECLAMAR POR LA OTRA CASA..."
+          },
+          {
+            "hora": "11:03",
+            "remitente": "Maru",
+            "contenido": "Y FIJATE PORQUE ESTA MUY GRANDE ESA PERSONA NO VAYA A SER QUE TE QUEDES PAGANDO VOS SOLO EL JUICIO DURANTE AÑOS"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-05-23",
+        "mensajes": [
+          {
+            "hora": "12:53",
+            "remitente": "Maru",
+            "contenido": "Sebastian, si no desean hacer parte de esta negociación la propiedad donde actualmente reside la Sra. Stella Peyrano, que será heredada por sus hijos Marina Barberis y Sebastián Barberis en partes iguales al momento del fallecimiento de la misma, quedará sujeta a acciones legales por parte de Marina Barberis, quien reclamará judicialmente su parte de dicha propiedad, incluyendo los bienes en ella contenidos. Cabe destacar que hay dos hijos y dos propiedades, por lo que se apela al sentido común para alcanzar un acuerdo equitativo. La propuesta consiste en que Marina Barberis está dispuesta a ceder sus derechos hereditarios sobre la propiedad actualmente habitada por la Sra. Stella Peyrano (3 dormitorios, 2 cocheras, parque propio, toda refaccionada, limonero, etc.) en favor de Sebastián Barberis, quien se convertiría así en único propietario de dicho inmueble. A cambio, Sebastián Barberis deberá transferir su parte de la propiedad ubicada en calle Noruega (casa vieja, de pasillo, sin cochea, a reciclar y de poco valor) a favor de Marina Barberis, quien se convertirá en su única propietaria, sin usufructo alguno. Esta cesión deberá concretarse en un mismo acto, de forma simultánea y mediante acuerdo mutuo. En criollo, con este acuerdo cada hermano tendrá una casa propia, de lo contrario, si vos me reclamas la parte de esta casa a mi, yo te voy a ir a reclamar a vos la parte de la otra casa que me corresponde a mi, llegado el momento y así ninguno de los dos va a tener casa propia. Mi abogada ya está al tanto de esta decisión."
+          }
+        ]
+      }
+    ],
+    "juan_jose": [
+      {
+        "fecha": "2025-05-12",
+        "mensajes": [
+          {
+            "hora": "18:04",
+            "remitente": "María del Carmen",
+            "contenido": "Buenas tardes doctor, soy María del Carmen Zambruno"
+          },
+          {
+            "hora": "18:05",
+            "remitente": "María del Carmen",
+            "contenido": "Quería saber si había podido hablar con sus clientes"
+          },
+          {
+            "hora": "18:05",
+            "remitente": "María del Carmen",
+            "contenido": "Espero su respuesta"
+          },
+          {
+            "hora": "18:27",
+            "remitente": "Juan José",
+            "contenido": "Hola Dra. buenas tardes"
+          },
+          {
+            "hora": "18:28",
+            "remitente": "Juan José",
+            "contenido": "lostengo citados hoy al estudio"
+          },
+          {
+            "hora": "18:31",
+            "remitente": "María del Carmen",
+            "contenido": "Buenísimo. Espero sis comentarios"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-05-14",
+        "mensajes": [
+          {
+            "hora": "09:14",
+            "remitente": "Juan José",
+            "contenido": "Hola Dra. Buen día. Cuando nos podríamos reunir unos minutos para hablar de este tema? Ud. Va para el tribunal esta semana?"
+          },
+          {
+            "hora": "09:16",
+            "remitente": "María del Carmen",
+            "contenido": "Hola doctor, buen día. No, yo mi problema es que yo no no me movilizo, yo no voy más al tribunal. Porque tengo dificultades para trasladarme. Por eso yo cerré el estudio y acá en mi casa este porque no no no puedo caminar mucho ando con un andador y no al tribunal no voy este no sé si quiere que lo hagamos a través de una videollamada o se quiere hacer por teléfono estoy en Rodríguez y Mendoza este no sé pero si no lo podemos hacer con una video llamada lo que a usted le parezca eh no sé cómo cómo quiere que hagamos más. Creo que a la a la mediación va a ir mi socia no sé"
+          },
+          {
+            "hora": "10:23",
+            "remitente": "Juan José",
+            "contenido": "Bueno doctora hacemos una videollamada no hay problema eh usted ¿Qué tiene algún horario en especial que puede? Yo hoy tengo un par de reuniones a la tarde yo calculo que me voy a estar desocupando a lo mejor Más cerca de las siete de la tarde, siete ___ Sí, por ahí siete de la tarde, si usted puede le hago hacen una videollamada de sabor,"
+          },
+          {
+            "hora": "10:24",
+            "remitente": "María del Carmen",
+            "contenido": "Me parece perfecto, me parece perfecto. Sí, sí, sí, sí, sí, sí, esa hora ya no llama tanto la gente. Este no nos interrumpan eh perfecto eh nos nos hablamos esa hora entonces doctor me parece perfecto listo"
+          },
+          {
+            "hora": "19:02",
+            "remitente": "Juan José",
+            "contenido": "Hola Dra. está para la videollamada?"
+          },
+          {
+            "hora": "19:04",
+            "remitente": "María del Carmen",
+            "contenido": "Siiii"
+          },
+          {
+            "hora": "19:09",
+            "remitente": "María del Carmen",
+            "contenido": "[Videollamada]"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-05-19",
+        "mensajes": [
+          {
+            "hora": "19:00",
+            "remitente": "María del Carmen",
+            "contenido": "Hola doctor, buenas tardes. Podemos hablar?"
+          },
+          {
+            "hora": "19:01",
+            "remitente": "Juan José",
+            "contenido": "si, no hay problema"
+          },
+          {
+            "hora": "19:02",
+            "remitente": "Juan José",
+            "contenido": "[Llamada - 12 min]"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-05-23",
+        "mensajes": [
+          {
+            "hora": "11:08",
+            "remitente": "Juan José",
+            "contenido": "Hola doctora buen día ¿Cómo está? Bueno le comento un poquito lo que estoy hablando con mi clienta eh eh el tema vio de de compensar esto que ella quería lo del su su fruto con con la casa y eso yo lo veo medio complicado eh yo le diría a ver qué le parece a usted si vamos solamente eh nos enfocamos solamente en el tema de la división de la de la de la propiedad de la división del condominio eh para ponerlo a la venta y nada más o sea la la otra casa que que mi clienta quería introducir es una es una casa de ella ella está viva que lo ve a ella más delante si si se yo es otro tema me parece que que embarrar un poco la situación eh es la división de condominio de la propiedad esta eh las partes están están de acuerdo en ponerla a la venta empezar a definir esas condiciones inmobiliaria, precio, eh si hay diferencias eh bueno eh charlarla o que las partes renuncian a cualquier eh mutuo y se divide cincuenta esa esas esas cuestiones digamos básicamente eh si a usted le parece vamos por esa vía directamente después lo otro quedará para para más adelante eh ayer bueno la la yo le informé a la mediadora que nosotros estamos hablando eh ella está predispuesta incluso que si nosotros llegamos a un acuerdo y llegamos podemos formalizarlo dentro de la o no cerró la mediación de acuerdo aparte eh bueno eh en fin eh yo le voy a pasar igual porque la la mediadora me pidió eh que que le le recuerde los datos ella por si usted la quería contactar o le quería mandar un mensaje o le quería avisar algo eh pero este bueno estaremos en contacto nosotros a ver si si podemos a lo mejor terminar de de definir por ese por ese lado yo esta tarde no voy a estar en el estudio eh hoy viernes no voy a estar eh pero en todo caso podemos hablar el el lunes o o o me dice eh en qué momento a lo mejor y ser algún a un llamado gracias saludos"
+          },
+          {
+            "hora": "11:12",
+            "remitente": "Juan José",
+            "contenido": "ilecaprile@gmail.com"
+          },
+          {
+            "hora": "11:12",
+            "remitente": "Juan José",
+            "contenido": "Ese es el correo"
+          },
+          {
+            "hora": "11:13",
+            "remitente": "Juan José",
+            "contenido": "No tengo el número de teléfono"
+          },
+          {
+            "hora": "11:15",
+            "remitente": "María del Carmen",
+            "contenido": "Hola doctor buen día ¿Cómo le va? Sí está bien hagamos eso pero bueno tengamos en cuenta el tema de de la del dinero que ellos han puesto porque hoy la casa vale mucho más gracias a toda la la inversión que ellos hicieron o sea tenemos que hablar de compensación en todo caso de de alquileres porque usted no se olvide que hay un eh desde el momento en que reclamos ya se empiezan a acumular los los o sea que tendríamos que firmar un convenio y ver cómo queda eso pero sí no hay problema si lo otro lo quería introducir la señora no no hay drama yo de cualquier manera no soy yo la que tiene la última tengo que hablar con Marina pero sí sí no hay problema lunes nos hablamos este sí la lo que pasa es que la la mujer esta debe querer cobrar este sus honorarios por si no lo hacemos así que eh yo que quiere que le diga yo __ voy a decir que nosotros no vamos a ir ni vamos a pagar en realidad nosotros no hicimos lugar a a la mediación nos pusimos siempre a disposición de de solucionar el tema de este pero bueno eh bueno eh listo nos hablamos buen fin de semana"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-05-29",
+        "mensajes": [
+          {
+            "hora": "10:13",
+            "remitente": "Juan José",
+            "contenido": "Hola doctora buen día ¿Qué tal? ¿Cómo estás? Bueno le quería comentar un poquito ayer nosotros cerramos el tema de la mediación pero la idea yo también se lo aclara mi clienta ya que tenemos buena predisposición de parte suya y y que puede hablar es tratar de de ver si podemos concrètes un acuerdo en forma privada digamos eh vamos a aprovechar que tenemos esa posibilidad eh la idea obviamente ponerla a la venta la propiedad bueno ___ están estas cuestiones de estos detalles que tenemos que ir puliendo en primer lugar tenemos que determinar el monto de la del inmueble para poder eh firmar este el acuerdo está el tema de las eh de los arreglos que que su clienta eh dice que hizo en la casa para poder también determinar un valor de esos arreglos eh bueno tendríamos que ir avanzando en ese sentido yo no tengo problema de ir armando un de pasárselo como para ir viendo cuestiones ir definiendo cosas y ir viendo cuáles son las cuestiones que hay que completar eh pero principalmente también está el tema este del valor del inmueble que hay que tasarse eh y que su clienta tendría que permitirnos el acceso a alguien para que estase de parte nuestra y tiene que buscar lo _____ sería que busca de parte de ella también uno para ponerse para ponernos de acuerdo en un monto así que bueno eso _____ le parece que que que sigamos avanzando y yo en todo caso voy voy armando un un borrador o si quiere armarlo a usted no hay problema como para ir definiendo algunos puntos."
+          },
+          {
+            "hora": "11:31",
+            "remitente": "María del Carmen",
+            "contenido": "Bueno sí sí sí yo estoy totalmente de acuerdo lo único que le digo doctor es que eh antes me gustaría definir el tema de lo la inversión que ellos han hecho porque eh invirtieron una cifra importante y además este ellos le están reclamando el pago de del proporcional de alquiler entonces este a mí me gustaría que hubiera una propuesta al respecto porque la _ esa inversión que ellos hicieron es la que va a permitir vender mejor la casa porque una cosa es como estaba con todos los agujeros que ellos dejaron y bueno el estado de abandono el que estaba esa casa porque además estuvo un tiempo deshabitada este además de de de del propio deterioro que tenía la casa y ahora la casa está en condiciones o sea sigue siendo una casa vieja eh recauchutadas pero bueno pero está en condiciones hoy por hoy se puede ofrecer este tranquilamente ¿No es cierto? Este es una casa que el que la compre lleva sus muebles y la evitar entonces este y además es importante porque en este momento las propiedades empezaron a a venderse ahora con este asunto de sacar los dólares este de de debajo del colchón y lo demás la gente está moviendo un poco más el mercado inmobiliario así que bueno me gustaría ver que cuál es la propuesta porque ya que ellos no quieren saber nada con dejarle la casa la parte de esta marina este bueno eh veremos lo otro pero eh bueno no sé qué idea tendrán al respecto es una pena porque era más sencillo decir bueno dividamos una casa para cada uno más allá que la madre está viva ¿No? Pero la sesión de derechos y acciones de una casa más importante a favor del hermano era por supuesto mucho más tentadora pero bueno este no hay problema yo traslado y y usted vaya diciéndome cómo pretenden hacer con todo esto porque que se yo bueno ya estamos en junio ¿No es cierto? Este yo con respecto al tema de las tasaciones pienso que en la medida en que usted acompaña el tazador que vaya de parte de ellos de no va a haber inconvenientes este y total uste[...]"
+          },
+          {
+            "hora": "12:09",
+            "remitente": "Juan José",
+            "contenido": "Dale sí eh yo te diría que arranquemos por el tema ese de las tasaciones porque mi cliente para hacer una propuesta va a querer tener una idea de lo que vale la propiedad y de paso poder verificar cuáles son estos estas mejoras que ellos que ellos han hecho porque no o sea no se ellos no entraron nunca más a la propiedad eh yo le voy a decir de que que busque alguien para hacerla y cuando lo tenga yo me aviso para poder coordinar un día y una hora este para que puedan para que esta persona pueda ingresar y y ___ el inmueble y por el lado de de su clienta que vaya buscando también alguien que la que latase eh obviamente que en este caso como la idea es ponerla a la venta o cuanto más cuanto más se saque mejor para todo así que no creo que haya en la determinación del importe eh y de paso también que vayan viendo el tema de cuál es la la inversión que hicieron ellos ahí para despues poder juntar todos los números pero arrancando me parece que para ir avanzando podemos ir eso definiendo el tema de las tasaciones así que yo le digo a mi cliente que busque a alguien y cuando lo tenga me le aviso así coordinamos bárbaro saludos"
+          },
+          {
+            "hora": "12:15",
+            "remitente": "María del Carmen",
+            "contenido": "Sí sí no hay problema este eh de cualquier forma ellos tienen todos fotos de cuando se hicieron cargo de la casa de un estado en el que estaba y fotos de cómo está actualmente todos los arreglos y los comprobantes de __ pagado salvo algunas cosas mano de obra de algunos albañiles algunas cosas que esas veces bueno esta gente no no si uno no llama una empresa no tiene ____ se puede pedirle que hagan un papelito con lo que se les pagó pero eh una cosa absolutamente informal eso ya se sabe eh doctor como es la historia"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-06-04",
+        "mensajes": [
+          {
+            "hora": "18:54",
+            "remitente": "María del Carmen",
+            "contenido": "Hola colega buenas tardes"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-06-05",
+        "mensajes": [
+          {
+            "hora": "08:25",
+            "remitente": "Juan José",
+            "contenido": "Hola! Buen dia.. lo vi tarde al mensaje"
+          },
+          {
+            "hora": "08:26",
+            "remitente": "María del Carmen",
+            "contenido": "Buen día, no hay problema. Podemos hablar a la tarde? Porque ahora tengo que salir"
+          },
+          {
+            "hora": "08:27",
+            "remitente": "Juan José",
+            "contenido": "sisi"
+          },
+          {
+            "hora": "08:27",
+            "remitente": "Juan José",
+            "contenido": "a la tarde te llamo"
+          },
+          {
+            "hora": "08:27",
+            "remitente": "María del Carmen",
+            "contenido": "Ok. Saludos"
+          },
+          {
+            "hora": "18:16",
+            "remitente": "Juan José",
+            "contenido": "[Llamada - 9 min]"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-06-09",
+        "mensajes": [
+          {
+            "hora": "16:00",
+            "remitente": "María del Carmen",
+            "contenido": "Hola doctor, buenas tardes, ¿Qué tal? Soy María del Carmen Zambruno. Doctor, él le voy a mandar este un excel que han hecho los chicos con ya me lo habían mandado la otra vez este Excel mmm yo odio los Excel pero bueno este con el lo lo que ellos gastaron y __ las fotos del estado deplorable en el que estaba la casa y algunas fotos actuales de cómo he quedado aunque no quieren mucho que se vea mucho los muebles las cosas que tiran ¿No? Pero bueno están hechos los arreglos este y bueno hay en presupuesto no están incluidos por ejemplo los los tres equipos de aire acondicionado que se llevaron este que eso también vamos a tener que charlarlo porque en realidad eh que sabe que los los los aire acondicionados esos son inmuebles por accesión y corresponden al al nudo propietario no al que tiene el usufructo __ que tiene el usufructo ___ puede usar no llevárselos este y el nudo propietario son dos y en realidad eh Marina no se llevó nada todo contrario entonces bueno eso tenemos que verlo también porque ellos quieren cobrar el alquiler quieren vender no quieren compartir nada del otro y todo lo lo de valor que se llevaron consideran que tienen derecho a llevárselo y todo como según ellos y bueno yo estoy no sé este un poco eh molesta con toda esta situación me parece terrible ¿No? Que sean que lleven la misma sangre pero me gustaría ponernos de acuerdo de la mejor manera doctor con este asunto yo le voy a mandar las cosas para que usted vea el estado en el que estaba la casa este de la verdad que da ganas de llorar que ellos la hayan permitido que llegue a ese estado y ahora vengan con todas estas exigencias pero bueno espero su su llamado doctor yo no tengo problemas en reunirme con esta _____ de alguna forma si usted quiere que tengamos una reunión en conjunto no tengo problemas me hago llevar no me gustaría en el tribunal pues ya le digo yo el tribunal no voy no me gusta ir con el andador pero algún lugar de fácil eso __ voy a neutral [...]"
+          },
+          {
+            "hora": "16:05",
+            "remitente": "María del Carmen",
+            "contenido": "[Eliminaste este mensaje.]"
+          },
+          {
+            "hora": "18:55",
+            "remitente": "Juan José",
+            "contenido": "Hola Dra.. veo todo,lo hablo con mi cliente y le doy una respuesta"
+          },
+          {
+            "hora": "18:55",
+            "remitente": "María del Carmen",
+            "contenido": "Gracias"
+          },
+          {
+            "hora": "18:55",
+            "remitente": "María del Carmen",
+            "contenido": "okay listo Juan José cariños hasta pronto"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-06-25",
+        "mensajes": [
+          {
+            "hora": "15:36",
+            "remitente": "María del Carmen",
+            "contenido": "Hola doctor, buenas tardes. Lo molesto para preguntarle si pudo hablar con sus clientes. Aguardo su respuesta"
+          },
+          {
+            "hora": "16:30",
+            "remitente": "Juan José",
+            "contenido": "Hola! En este momento me encuentro de viaje por motivos personales, en caso de urgencia dejá tu mensaje por este medio que una persona del estudio se comunicará con vos a la brevedad (este es un mensaje automático)"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-06-26",
+        "mensajes": [
+          {
+            "hora": "09:11",
+            "remitente": "Juan José",
+            "contenido": "Del estudio drl Dr. Mengarelli_ el Dr. vuelve fin de semana proxima saludos"
+          },
+          {
+            "hora": "09:11",
+            "remitente": "María del Carmen",
+            "contenido": "Gracias por avisar"
+          },
+          {
+            "hora": "09:12",
+            "remitente": "María del Carmen",
+            "contenido": "Saludos"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-07-24",
+        "mensajes": [
+          {
+            "hora": "15:00",
+            "remitente": "María del Carmen",
+            "contenido": "Buenas tardes doctor soy María del Carmen Zambruno"
+          },
+          {
+            "hora": "16:38",
+            "remitente": "Juan José",
+            "contenido": "Hola Dra. como esta? buenas tardes.."
+          },
+          {
+            "hora": "16:39",
+            "remitente": "Juan José",
+            "contenido": "ayer estuve hablando con mi clienta.. quedó en pasarme una propuesta para ver de solucionar este tema"
+          },
+          {
+            "hora": "16:39",
+            "remitente": "Juan José",
+            "contenido": "apenas tenga algo la llamo"
+          },
+          {
+            "hora": "16:40",
+            "remitente": "María del Carmen",
+            "contenido": "Hola doctor bueno bueno bueno no está está no nosotros no tenemos ningún tipo de apuro pero como no habíamos vuelto a hablar tenía _____ de estar yo en falta realmente no no no me acordaba si habíamos quedado en algo concreto __ llamé la vez pasada y usted estaba de viaje y después bueno vino la feria que se yo digo bueno por ahí le hago un pero bueno no hay problema ningún tipo de apuro tenemos así que es todo bien le mando un abrazo doctor"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-08-20",
+        "mensajes": [
+          {
+            "hora": "17:30",
+            "remitente": "Juan José",
+            "contenido": "[Llamada - 16 min]"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-09-03",
+        "mensajes": [
+          {
+            "hora": "18:55",
+            "remitente": "Juan José",
+            "contenido": "Hola Dra. Buenas tardes.."
+          },
+          {
+            "hora": "18:55",
+            "remitente": "Juan José",
+            "contenido": "pudo hablar con su clienta?"
+          },
+          {
+            "hora": "19:15",
+            "remitente": "María del Carmen",
+            "contenido": "Hola doctor, si nos reunimos y ellos insisten en recuperar lo invertido en los arreglos o, de lo contrario, seguir ocupando la casa, un tiempo más"
+          },
+          {
+            "hora": "19:16",
+            "remitente": "María del Carmen",
+            "contenido": "La realidad que invirtieron mucho dinero en convertir la casa en habitable y no están económicamente en condiciones de encarar por el momento una mudanza"
+          },
+          {
+            "hora": "19:17",
+            "remitente": "María del Carmen",
+            "contenido": "Me dijo Marina que ella le dijo a la madre que iba a arreglar la casa para vivir un tiempo y ella no se opuso"
+          },
+          {
+            "hora": "19:18",
+            "remitente": "María del Carmen",
+            "contenido": "Porque la casa estaba abandonada en todo sentido. Sin consentimiento no hubieran hecho semejante inversión"
+          },
+          {
+            "hora": "19:18",
+            "remitente": "María del Carmen",
+            "contenido": "Tienen las facturas de lo gastado"
+          },
+          {
+            "hora": "19:20",
+            "remitente": "María del Carmen",
+            "contenido": "Tratemos de llegar a un acuerdo"
+          },
+          {
+            "hora": "19:22",
+            "remitente": "Juan José",
+            "contenido": "Mi clienta me dice que eso no fue así, que de un dia para el otro ella la ocupó sin avisar.."
+          },
+          {
+            "hora": "19:22",
+            "remitente": "Juan José",
+            "contenido": "lo voy a volver a hablar.. pero la ultima vez que la vi no quería saber nada de reconocer esos gastos"
+          },
+          {
+            "hora": "19:22",
+            "remitente": "María del Carmen",
+            "contenido": "Estuvieron un tiempo arreglando la antes de mudarse"
+          },
+          {
+            "hora": "19:23",
+            "remitente": "Juan José",
+            "contenido": "a mi me cuentan otra versión"
+          },
+          {
+            "hora": "19:23",
+            "remitente": "Juan José",
+            "contenido": "va a ser muy difícil llegar a un acuerdo"
+          },
+          {
+            "hora": "19:25",
+            "remitente": "María del Carmen",
+            "contenido": "Qué lástima."
+          },
+          {
+            "hora": "19:28",
+            "remitente": "María del Carmen",
+            "contenido": "Doctor una pregunta ¿Cuántos creen que vale esa casa ellos? Eh si la vendieran ¿Cuántos creen que vale? Este yo diría que el valor lo tienen que establecer caso según las fotos que yo le mandé ¿No? Porque si no van a reconocer lo que gastaron tampoco pueden beneficiarse con un precio mayor este y y además hay que hay que ver el tema de los aires que tenemos que que verlo a ese asunto este porque el usufructuario no tiene derecho a sacar las cosas que están puestas en la pared eh y y nadie le dijo la casa es de ellos del hermano y de ella porque con todo lo que tiene la casa ella tenía derecho a usarla no a pasearla y la vacío o sea eh judicialmente no sé quién lleva a los sinceramente no sé quién _____ ___ de perder porque la situación es bastante complicada pero es una lástima es una lástima porque eh es un capricho de ella ahora que ella me diga que no quiere darle plata porque no tiene bueno que espere un poco cuando la vendan le reconozcan algo y si no hay que ver el valor de la casa en el estado que estaba yo les mandé fotos tengo muchas más fotos está todo todo íntegramente fotografiado"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-09-15",
+        "mensajes": [
+          {
+            "hora": "12:56",
+            "remitente": "María del Carmen",
+            "contenido": "Buen día doctor pudo volver a hablar con su clienta?"
+          },
+          {
+            "hora": "17:37",
+            "remitente": "Juan José",
+            "contenido": "[Llamada - 1 min]"
+          }
+        ]
+      },
+      {
+        "fecha": "2025-09-25",
+        "mensajes": [
+          {
+            "hora": "11:52",
+            "remitente": "María del Carmen",
+            "contenido": "Hola doctor ¿Cómo le va? Yo le debía una respuesta a usted hablé con con marina este y ellos lo que me dicen es que si no le van a reconocer este toda inversión que ellos hicieron necesitan eh un tiempo para poder terminar de pagar la cantidad de préstamos que tuvieron que sacar porque hay cosas que se financiaron comprando los materiales y hubo que sacar préstamos para la mano de obra, para un montón de cosas, para poner al día ____ la los impuestos que estaban atrasados este bueno una serie de de de cosas que hubo que pagar ellos no son gente de dinero por lo tanto tuvieron que hacer este inversiones reales ¿No? Más allá de que ella no quiera reconocer o lo que diga pero bueno ellos necesitan prolongado para poder recuperarse de todo eso porque hoy no están en condiciones de mudarse sinceramente no están en condiciones y tampoco pueden este estar pagando un alquiler eh cuando ellos este todavía están pagando la inversión que tuvieron que hacer para convertir esa propiedad __ habitable o sea eh realmente eh este su capricho de esta señora eh que bueno al hijo y bueno pero realmente no sé ellos necesitaban no sé quizás un poquito menos pero no menos de dos años este yo sé que no no no se los no se los va a dar ella no __ va a querer saber nada no va a querer saber nada pero bueno sino que que establezcamos un un monto que ella reconoce y y veamos como como lo manejamos nosotros dispuestos a querer llegar a una transacción porque sabemos que el juicio puede llegar a hacer una sangría y que van a perder todos van a perder todos porque tampoco estamos hablando de una propiedad muy valiosa es una propiedad muy antigua y _____ la la arreglaron un poco __ maquillaron otro poco pero la propiedad sigue siendo antigua este y y bueno eh eh no deja de ser un un departamento interno de pasillo o sea realmente la venta de por sí en este momento no no les va a redituar demasiado porque hay que repartir y y sinceramente este si si encima eso se ha[...]"
+          },
+          {
+            "hora": "11:56",
+            "remitente": "María del Carmen",
+            "contenido": "Perdón por el mensaje largo"
+          },
+          {
+            "hora": "16:51",
+            "remitente": "Juan José",
+            "contenido": "Hola ____ ¿Qué tal? Bueno no no mi clienta eso no no no lo quiere aceptar eh dos años le parece una barbaridad eh mi clienta es dura pero también de su de su lado su eh me parece que no no no lo veo tampoco que aflojen porque me pasan una planilla de un total de gastos con mano de obra y materiales de seis millones que incluso la mía dice que imposible que que hayan gastado esa plata en ese en ese tipo de de de arreglo pero vamos a suponer que ______ ido porque son seis millones eh si uno lo pudiera compensar con un alquiler de una que hoy en día a los montos que están los alquileres yo calculo a lo mejor una ________ a poder estar en trescientos cincuenta cuatrocientos mil pesos tranquilamente un alquiler porque es un alquiler bajo eh eh para a los a los seis millones eh no me parece que en dos años me me estoy pasando me estoy pasando de de más digamos de de los gastos que hicieron eh bueno lamentablemente no no lo vamos a poder arreglar así ____ bueno yo voy a seguir adelante que va a ser no no me queda otra yo estaba esperando una respuesta __ clienta me pregunta encima toda la semana que novedad detengo así que voy a tener que iniciarla a la demanda y y bueno veremos lo mejor de de otra manera o con el paso del tiempo si si podemos acercar un poco la ___ posiciones"
+          },
+          {
+            "hora": "17:51",
+            "remitente": "María del Carmen",
+            "contenido": "Yo lo que le digo es que no se olvide que el veinticinco por ciento ___ usufructo es de marina o sea que ella tendría que en todo caso pagar el setenta y cinco por ciento del alquiler y esa casa no alquila por más de trescientos a nadie pero yo digo una cosa si le van a pretender cobrar el alquiler no le van a reconocer los arreglos y van a pretender cobrarle el alquiler en el estado en que eh eh en que está en este momento están perjudicando doblemente __ es que mi cliente no quiere aflojar pero convengamos que hoy por hoy si esa casa se puede alquilar en trescientos trescientos cincuenta como dice usted eh es porque está habitable la dejaron abandonada, destruida y se robaron los tres equipos de aire acondicionado que estaban instalados ahí y no eran de ella el usufructo no le da derecho a llevarse nada entonces eh saquemos el el setenta y por ciento del alquiler y dígame cuánto le da este y entonces usted me dice eh lo lo esperamos hasta hasta tanto tiempo y yo se lo traslado me parece porque todos no esos arreglos no son exagerados pero no lo reconocen nada eh bueno también y no dice nada de los aires porque ya se cree que es la dueña de de de la de todo ella lo que quiere es el conflicto Y mis clientes están también empacados porque hicieron __ le avisaron que iban a hacer unos arreglos y se iban a instalar ahí y después yo sabía que esto le iba a pasar porque es así una vez que estuvo instalado que subieron ellos que arreglaron ________ ahora ellos quieren __ Aquila no bueno momento este ella es es me parece que las exigencias no son parejas las exigencias pretenden recuperar lo que pusieron nada más Pero si no son dos años, bueno, dígame usted cuánto es el setenta y cinco por ciento del alquiler en el estado en el que estaba la casa. Haga el cálculo, cuánto tiempo le da y yo les traslado que ese es el tiempo que les correspondería y que ellos me digan sí o no, sí discutir más. ¿Qué le parece?"
+          }
+        ]
+      }
+    ]
+  },
+  "resumen_financiero": {
+    "total_materiales": 2750682,
+    "total_mano_obra": 3459400,
+    "total_inversion": 6210082
+  }
+}
